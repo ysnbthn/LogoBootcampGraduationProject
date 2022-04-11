@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32228.430
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootcampProject.Core", "BootcampProject.Core\BootcampProject.Core.csproj", "{5B0EBDBB-FCFC-46DD-A2D9-BC9C84362011}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootcampProject.DataAccess.EntityFramework", "BootcampProject.DataAccess.EntityFramework\BootcampProject.DataAccess.EntityFramework.csproj", "{F18B51BD-167E-40F8-94D2-C71DB87EA656}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootcampProject.DataAccess.EntityFramework.Repository", "BootcampProject.DataAccess.EntityFramework.Repository\BootcampProject.DataAccess.EntityFramework.Repository.csproj", "{7AF7F68A-168E-4053-8C70-AD8E8F2F00D2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootcampProject.Domain", "BootcampProject.Domain\BootcampProject.Domain.csproj", "{C2DCFBB1-64AD-44C4-9823-05AB188A294F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootcampProject.PaymentApi", "BootcampProject.PaymentApi\BootcampProject.PaymentApi.csproj", "{A2924DE7-1E41-479C-96C5-709D20774120}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootcampProject.DataAccess.MongoDB.Repository", "BootcampProject.DataAccess.MongoDB.Repository\BootcampProject.DataAccess.MongoDB.Repository.csproj", "{5A795E91-7675-404D-9D05-72DAF078A0D4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BootcampProject.Web", "BootcampProject.Web\BootcampProject.Web.csproj", "{D05D6905-5DE2-498E-862A-9815D2691453}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5B0EBDBB-FCFC-46DD-A2D9-BC9C84362011}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B0EBDBB-FCFC-46DD-A2D9-BC9C84362011}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B0EBDBB-FCFC-46DD-A2D9-BC9C84362011}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B0EBDBB-FCFC-46DD-A2D9-BC9C84362011}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F18B51BD-167E-40F8-94D2-C71DB87EA656}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F18B51BD-167E-40F8-94D2-C71DB87EA656}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F18B51BD-167E-40F8-94D2-C71DB87EA656}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F18B51BD-167E-40F8-94D2-C71DB87EA656}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7AF7F68A-168E-4053-8C70-AD8E8F2F00D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7AF7F68A-168E-4053-8C70-AD8E8F2F00D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7AF7F68A-168E-4053-8C70-AD8E8F2F00D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7AF7F68A-168E-4053-8C70-AD8E8F2F00D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2DCFBB1-64AD-44C4-9823-05AB188A294F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2DCFBB1-64AD-44C4-9823-05AB188A294F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2DCFBB1-64AD-44C4-9823-05AB188A294F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2DCFBB1-64AD-44C4-9823-05AB188A294F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2924DE7-1E41-479C-96C5-709D20774120}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2924DE7-1E41-479C-96C5-709D20774120}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2924DE7-1E41-479C-96C5-709D20774120}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2924DE7-1E41-479C-96C5-709D20774120}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A795E91-7675-404D-9D05-72DAF078A0D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A795E91-7675-404D-9D05-72DAF078A0D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A795E91-7675-404D-9D05-72DAF078A0D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A795E91-7675-404D-9D05-72DAF078A0D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D05D6905-5DE2-498E-862A-9815D2691453}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D05D6905-5DE2-498E-862A-9815D2691453}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D05D6905-5DE2-498E-862A-9815D2691453}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D05D6905-5DE2-498E-862A-9815D2691453}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {071AFD3C-8DD5-495D-9D89-87AFA37262E7}
+	EndGlobalSection
+EndGlobal
