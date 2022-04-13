@@ -1,5 +1,9 @@
 using BootcampProject.DataAccess.EntityFramework;
 using BootcampProject.Domain.Entities;
+using BootcampProject.Web.Models;
+using BootcampProject.Web.Validators;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -32,7 +36,10 @@ namespace BootcampProject.Web
                 .AddDefaultUI()
                 .AddDefaultTokenProviders();
 
-            services.AddControllersWithViews();
+
+
+            services.AddControllersWithViews().AddFluentValidation(fv => fv.DisableDataAnnotationsValidation = true);
+            services.AddTransient<IValidator<LoginViewModel>, LoginValidator>();
             services.AddRazorPages();
         }
 
@@ -62,7 +69,7 @@ namespace BootcampProject.Web
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Login}/{id?}");
                 endpoints.MapRazorPages();
             });
         }

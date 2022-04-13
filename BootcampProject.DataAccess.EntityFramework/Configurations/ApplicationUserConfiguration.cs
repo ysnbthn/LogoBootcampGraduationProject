@@ -11,8 +11,9 @@ namespace BootcampProject.DataAccess.EntityFramework.Configurations
             builder.ToTable("Users");
             builder.Property(u=>u.Name).IsRequired().HasMaxLength(20);
             builder.Property(u=>u.Surname).IsRequired().HasMaxLength(20);
-            builder.Property(u=>u.TCNo).IsRequired().HasMaxLength(11);
+            builder.Property(u => u.TCNo).IsRequired().HasMaxLength(11).IsFixedLength(true);
             builder.Property(u => u.CarPlateNumber).HasMaxLength(8);
+            builder.Property(u => u.PhoneNumber).IsRequired().HasMaxLength(11).IsFixedLength(true);
         }
     }
 }

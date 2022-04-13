@@ -66,7 +66,10 @@ namespace BootcampProject.DataAccess.EntityFramework.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(11)
+                        .HasColumnType("nchar(11)")
+                        .IsFixedLength(true);
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
@@ -82,7 +85,8 @@ namespace BootcampProject.DataAccess.EntityFramework.Migrations
                     b.Property<string>("TCNo")
                         .IsRequired()
                         .HasMaxLength(11)
-                        .HasColumnType("nvarchar(11)");
+                        .HasColumnType("nchar(11)")
+                        .IsFixedLength(true);
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
