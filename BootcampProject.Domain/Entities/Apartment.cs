@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace BootcampProject.Domain.Entities
 {
-    public class Apartment
+    public class Apartment : BaseEntity
     {
-        public int Id { get; set; }
-
         public bool Occupied { get; set; }       
         public int Floor { get; set; }
         public int ApartmentNumber { get; set; }

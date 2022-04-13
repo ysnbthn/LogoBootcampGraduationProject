@@ -1,8 +1,7 @@
 ﻿namespace BootcampProject.Domain.Entities
 {
-    public class FlatType
+    public class FlatType : BaseEntity
     {
-        public int Id { get; set; }
         public string Name { get; set; }
     }
 }

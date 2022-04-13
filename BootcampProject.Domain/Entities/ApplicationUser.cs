@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System;
 
 namespace BootcampProject.Domain.Entities
 {
@@ -8,5 +9,10 @@ namespace BootcampProject.Domain.Entities
         public string Surname { get; set; }
         public string TCNo { get; set; }
         public string CarPlateNumber { get; set; }
+
+        public bool IsDeleted { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
+        public DateTime DeletedAt { get; set; }
     }
 }
