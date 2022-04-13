@@ -88,7 +88,19 @@ namespace BootcampProject.Web.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                if (User.IsInRole("Admin"))
+                {
+                    return RedirectToAction("IndexAdmin", "Home");
+                }
+                else if (User.IsInRole("Basic"))
+                {
+                    return RedirectToAction("IndexUser", "Home");
+                }
+            }
+            
+            return RedirectToAction("Login", "Home");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
