@@ -3,7 +3,7 @@ using System;
 
 namespace BootcampProject.Domain.Entities
 {
-    public class ApplicationUser : IdentityUser
+    public class ApplicationUser : IdentityUser, BaseEntity
     {
         public string Name { get; set; }
         public string Surname { get; set; }
@@ -14,5 +14,7 @@ namespace BootcampProject.Domain.Entities
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
         public DateTime DeletedAt { get; set; }
+        Guid BaseEntity.Id { get => new Guid(this.Id); set => this.Id = Guid.NewGuid().ToString(); }
     }
 }
+ 

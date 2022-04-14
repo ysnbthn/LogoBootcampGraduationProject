@@ -1,6 +1,7 @@
 ﻿using BootcampProject.Domain.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace BootcampProject.DataAccess.EntityFramework
 {

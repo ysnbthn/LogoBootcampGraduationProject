@@ -28,6 +28,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BootcampProject.Core\BootcampProject.Core.csproj" />
+    <ProjectReference Include="..\BootcampProject.DataAccess.EntityFramework.Repository\BootcampProject.DataAccess.EntityFramework.Repository.csproj" />
     <ProjectReference Include="..\BootcampProject.DataAccess.EntityFramework\BootcampProject.DataAccess.EntityFramework.csproj" />
   </ItemGroup>
 

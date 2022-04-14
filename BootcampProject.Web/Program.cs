@@ -27,6 +27,7 @@ namespace BootcampProject.Web
                     var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
                     await ContextSeed.SeedRoleAsync(userManager, roleManager);
                     await ContextSeed.SeedAdminAsync(userManager, roleManager);
+                    await ContextSeed.SeedBasicAsync(userManager, roleManager);
                 }
                 catch (Exception ex)
                 {

@@ -1,4 +1,8 @@
+using BootcampProject.Core.Abstract;
+using BootcampProject.Core.Concretes;
 using BootcampProject.DataAccess.EntityFramework;
+using BootcampProject.DataAccess.EntityFramework.Repository.Abstracts;
+using BootcampProject.DataAccess.EntityFramework.Repository.Concretes;
 using BootcampProject.Domain.Entities;
 using BootcampProject.Web.Models;
 using BootcampProject.Web.Validators;
@@ -36,10 +40,13 @@ namespace BootcampProject.Web
                 .AddDefaultUI()
                 .AddDefaultTokenProviders();
 
-
-
             services.AddControllersWithViews().AddFluentValidation(fv => fv.DisableDataAnnotationsValidation = true);
+            
             services.AddTransient<IValidator<LoginViewModel>, LoginValidator>();
+            services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
+            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
+
             services.AddRazorPages();
         }
 

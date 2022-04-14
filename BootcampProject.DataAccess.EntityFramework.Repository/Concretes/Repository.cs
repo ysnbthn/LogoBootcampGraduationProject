@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace BootcampProject.DataAccess.EntityFramework.Repository.Concretes
 {
-    public class Repository<T> : IRepository<T> where T : BaseEntity
+    public class Repository<T> : IRepository<T> where T : class, BaseEntity
     {
         public readonly IUnitOfWork _unitOfWork;
         public Repository(IUnitOfWork unitOfWork)
@@ -15,6 +15,7 @@ namespace BootcampProject.DataAccess.EntityFramework.Repository.Concretes
         }
         public void Add(T entity)
         {
+            entity.CreatedAt = DateTime.Now;
             _unitOfWork.Context.Set<T>().Add(entity);
         }
 
@@ -24,6 +25,7 @@ namespace BootcampProject.DataAccess.EntityFramework.Repository.Concretes
             if (exist != null)
             {
                 exist.IsDeleted = true;
+                exist.DeletedAt = DateTime.Now;
                 _unitOfWork.Context.Entry(entity).State = EntityState.Modified;
             }
         }
@@ -33,8 +35,14 @@ namespace BootcampProject.DataAccess.EntityFramework.Repository.Concretes
             return _unitOfWork.Context.Set<T>().Where(x => !x.IsDeleted).AsQueryable();
         }
 
+        public T GetById(string id)
+        {
+            return _unitOfWork.Context.Set<T>().Find(id);
+        }
+
         public void Update(T entity)
         {
+            entity.UpdatedAt = DateTime.Now;
             _unitOfWork.Context.Entry(entity).State = EntityState.Modified;
         }
     }

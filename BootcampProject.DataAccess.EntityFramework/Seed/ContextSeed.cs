@@ -1,6 +1,7 @@
 ﻿using BootcampProject.DataAccess.EntityFramework.Enums;
 using BootcampProject.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -24,6 +25,8 @@ namespace BootcampProject.DataAccess.EntityFramework.Seed
                 Surname = "Özyürek",
                 TCNo = "12345678901",
                 PhoneNumber = "05555555555",
+                CreatedAt = DateTime.Now,
+                IsDeleted = false,
                 EmailConfirmed = true
             };
 
@@ -38,6 +41,32 @@ namespace BootcampProject.DataAccess.EntityFramework.Seed
                 }
             }
         }
-        
+
+        public static async Task SeedBasicAsync(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
+        {
+            var basic = new ApplicationUser
+            {
+                UserName = "test@test.com",
+                Email = "test@test.com",
+                Name = "Yasin Batuhan",
+                Surname = "Özyürek",
+                TCNo = "12345678902",
+                PhoneNumber = "05555555556",
+                CreatedAt = DateTime.Now,
+                IsDeleted = false,
+                EmailConfirmed = true
+            };
+
+            if (userManager.Users.All(u => u.Id != basic.Id))
+            {
+                var user = await userManager.FindByEmailAsync(basic.Email);
+                if (user == null)
+                {
+                    await userManager.CreateAsync(basic, "Pa$$w0rd");
+                    await userManager.AddToRoleAsync(user, Roles.Basic.ToString());
+                }
+            }
+        }
+
     }
 }

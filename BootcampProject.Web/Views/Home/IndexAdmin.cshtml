@@ -1,5 +1,6 @@
 ﻿@{
     Layout = "_Layout";
+    ViewData["Title"] = "Admin Page";
 } 
 
 <!-- Content Wrapper. Contains page content CUT FROM HERE-->
@@ -30,9 +31,9 @@
                 <p>Manage Apartment Residents</p>
               </div>
               <div class="icon">
-                <i class="fas fa-shopping-cart"></i>
+                <i class="fa-solid fa-users"></i>
               </div>
-              <a asp-controller="Users" asp-action="Index" class="small-box-footer">
+              <a asp-controller="User" asp-action="Index" class="small-box-footer">
                 Go to page <i class="fas fa-arrow-circle-right"></i>
               </a>
             </div>

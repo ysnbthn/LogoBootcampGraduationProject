@@ -11,6 +11,11 @@ namespace BootcampProject.DataAccess.EntityFramework.Repository.Concretes
     {
         public ApplicationDbContext Context { get; }
 
+        public UnitOfWork(ApplicationDbContext context)
+        {
+            Context = context;
+        }
+
         public void Commit()
         {
             using(var transaction = Context.Database.BeginTransaction())
