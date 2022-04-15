@@ -1,0 +1,69 @@
+﻿@using BootcampProject.Core.DTOs
+@{
+    Layout = "_Layout";
+}
+@model CreateUserDto
+
+<div class="row mt-5 mb-5">
+    <div class="col-10 offset-1">
+        @using (Html.BeginForm("Create", "User", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="card-body">
+                    <p class="text-danger">@TempData["CreateError"]</p>
+
+                    <div class="mb-3">
+                        <div class="input-group">
+                            @Html.TextBoxFor(x => x.Email, new {@class = "form-control", placeholder = "Email", type="email"})
+                        </div>
+                        @Html.ValidationMessageFor(x => x.Email, null, new {@class = "text-danger mb-1"})
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="input-group">
+                            @Html.TextBoxFor(x => x.Password, new {@class = "form-control", placeholder = "Password", type="Password"})
+                        </div>
+                        @Html.ValidationMessageFor(x => x.Email, null, new {@class = "text-danger mb-1"})
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="input-group">
+                            @Html.TextBoxFor(x => x.Name, new {@class = "form-control", placeholder = "Name"})
+                        </div>
+                        @Html.ValidationMessageFor(x => x.Name, null, new {@class = "text-danger mb-1"})
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="input-group">
+                            @Html.TextBoxFor(x => x.Surname, new {@class = "form-control", placeholder = "Surname"})
+                        </div>
+                        @Html.ValidationMessageFor(x => x.Surname, null, new {@class = "text-danger mb-1"})
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="input-group">
+                            @Html.TextBoxFor(x => x.TCNo, new {@class = "form-control", placeholder = "TC number", maxlength="11"})
+                        </div>
+                        @Html.ValidationMessageFor(x => x.TCNo, null, new {@class = "text-danger mb-1"})
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="input-group">
+                            @Html.TextBoxFor(x => x.PhoneNumber, new {@class = "form-control", placeholder = "Phone Ex: 555 55 55", maxlength="10"})
+                        </div>
+                        @Html.ValidationMessageFor(x => x.PhoneNumber, null, new {@class = "text-danger mb-1"})
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="input-group">
+                            @Html.TextBoxFor(x => x.CarPlateNumber, new {@class = "form-control", placeholder = "Plate Number ex : 34AZ123", maxlength="8"})
+                        </div>
+                        @Html.ValidationMessageFor(x => x.CarPlateNumber, null, new {@class = "text-danger mb-1"})
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            }
+    </div>
+</div>

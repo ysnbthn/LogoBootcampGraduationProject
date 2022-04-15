@@ -1,6 +1,6 @@
-﻿namespace BootcampProject.Web.Models
+﻿namespace BootcampProject.Core.DTOs
 {
-    public class LoginViewModel
+    public class LoginDto
     {
         public string Email { get; set; }
         public string Password { get; set; }

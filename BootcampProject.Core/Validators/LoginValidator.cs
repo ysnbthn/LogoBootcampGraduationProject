@@ -1,9 +1,9 @@
-﻿using BootcampProject.Web.Models;
+﻿using BootcampProject.Core.DTOs;
 using FluentValidation;
 
-namespace BootcampProject.Web.Validators
+namespace BootcampProject.Core.Validators
 {
-    public class LoginValidator : AbstractValidator<LoginViewModel>
+    public class LoginValidator : AbstractValidator<LoginDto>
     {
         public LoginValidator()
         {

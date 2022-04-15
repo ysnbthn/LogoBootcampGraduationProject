@@ -1,4 +1,5 @@
-﻿using BootcampProject.Domain.Entities;
+﻿using BootcampProject.Core.DTOs;
+using BootcampProject.Domain.Entities;
 using BootcampProject.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -41,7 +42,7 @@ namespace BootcampProject.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> LoginAsync([FromForm] LoginViewModel login)
+        public async Task<IActionResult> LoginAsync([FromForm] LoginDto login)
         {
             if (!ModelState.IsValid) return View(login);
 

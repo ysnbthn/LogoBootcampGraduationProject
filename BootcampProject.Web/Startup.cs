@@ -1,11 +1,12 @@
 using BootcampProject.Core.Abstract;
 using BootcampProject.Core.Concretes;
+using BootcampProject.Core.DTOs;
+using BootcampProject.Core.MappingProfiles;
+using BootcampProject.Core.Validators;
 using BootcampProject.DataAccess.EntityFramework;
 using BootcampProject.DataAccess.EntityFramework.Repository.Abstracts;
 using BootcampProject.DataAccess.EntityFramework.Repository.Concretes;
 using BootcampProject.Domain.Entities;
-using BootcampProject.Web.Models;
-using BootcampProject.Web.Validators;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
@@ -40,12 +41,19 @@ namespace BootcampProject.Web
                 .AddDefaultUI()
                 .AddDefaultTokenProviders();
 
-            services.AddControllersWithViews().AddFluentValidation(fv => fv.DisableDataAnnotationsValidation = true);
-            
-            services.AddTransient<IValidator<LoginViewModel>, LoginValidator>();
+            services.AddControllersWithViews().AddFluentValidation(fv => 
+                    {
+                        fv.DisableDataAnnotationsValidation = true;
+                        fv.ImplicitlyValidateChildProperties = true;
+                    });
+
+            services.AddTransient<IValidator<LoginDto>, LoginValidator>();
+            services.AddTransient<IValidator<CreateUserDto>, CreateUserValidator>();
+
             services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddAutoMapper(typeof(MappingProfiles).Assembly);
 
             services.AddRazorPages();
         }

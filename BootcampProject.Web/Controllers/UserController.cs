@@ -1,8 +1,8 @@
 ﻿using BootcampProject.Core.Abstract;
-using BootcampProject.Domain.Entities;
+using BootcampProject.Core.DTOs;
 using BootcampProject.Web.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace BootcampProject.Web.Controllers
 {
@@ -18,22 +18,51 @@ namespace BootcampProject.Web.Controllers
         [HttpGet]
         public IActionResult Index([FromQuery] int page = 1)
         {
-            var users = _userService.GetPagedUsersAsync(page);
+            var users = _userService.GetPagedUsers(page);
 
-            return View(new UserActionViewModel { Users = users, EditUser = new ApplicationUser() });
+            return View(new UserActionDto { Users = users });
         }
 
+        [HttpGet]
+        public IActionResult Create()
+        { 
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create([FromForm] CreateUserDto user)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(user);
+            }
+
+            var result = _userService.AddUser(user);
+
+            if (result.Success) return RedirectToAction("Index");
+
+            TempData["Error"] = result.Error;
+
+            return View();
+        }
+
+        
+
         [HttpPut]
-        public IActionResult Update([FromForm] ApplicationUser user, [FromQuery] int page = 1)
+        public IActionResult Update([FromForm] UpdateUserDto user, [FromQuery] int page = 1)
         {
             if (ModelState.IsValid)
             {
-                _userService.UpdateUser(user);
+                var result = _userService.UpdateUser(user);
+
+                var users = _userService.GetPagedUsers(page);
+
+                return View("Index", new UserActionDto { Users = users, Result = result });
             }
 
-            var users = _userService.GetPagedUsersAsync(page);
-
-            return View("Index", new UserActionViewModel { Users = users, EditUser = new ApplicationUser() });
+            return View("Index", new UserActionDto { Users = _userService.GetPagedUsers(1), EditUser = user });
         }
+
+        
     }
 }
