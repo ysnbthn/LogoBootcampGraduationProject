@@ -1,6 +1,7 @@
 ﻿@using BootcampProject.Core.DTOs
 @{
     Layout = "_Layout";
+    ViewData["Title"] = "Create User";
 }
 @model CreateUserDto
 
@@ -50,7 +51,7 @@
 
                     <div class="mb-3">
                         <div class="input-group">
-                            @Html.TextBoxFor(x => x.PhoneNumber, new {@class = "form-control", placeholder = "Phone Ex: 555 55 55", maxlength="10"})
+                            @Html.TextBoxFor(x => x.PhoneNumber, new {@class = "form-control", placeholder = "Phone Ex: 0555 55 55", maxlength="11"})
                         </div>
                         @Html.ValidationMessageFor(x => x.PhoneNumber, null, new {@class = "text-danger mb-1"})
                     </div>

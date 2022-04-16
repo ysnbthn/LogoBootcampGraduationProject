@@ -10,6 +10,7 @@ namespace BootcampProject.Core.MappingProfiles
         {
             CreateMap<ApplicationUser, CreateUserDto>().ReverseMap();
             CreateMap<ApplicationUser, GetUserDto>().ReverseMap();
+            CreateMap<ApplicationUser, UpdateUserDto>().ReverseMap();
         }
     }
 }

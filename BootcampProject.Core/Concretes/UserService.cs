@@ -34,31 +34,37 @@ namespace BootcampProject.Core.Concretes
 
             if (userMailExists) return new ResponseDto { Success = false, Error = "There is already a member in database with same email" };
 
-            _repository.Add(_mapper.Map<ApplicationUser>(entity));
-            _unitOfWork.Commit();
+            var user = _mapper.Map<ApplicationUser>(entity);
+
+            user.EmailConfirmed = true;
+            user.CreatedAt = DateTime.Now;
+            user.UserName = entity.Email;
+
+            _userManager.CreateAsync(user, entity.Password).Wait();
+            _userManager.AddToRoleAsync(user, "Basic").Wait();
 
             return new ResponseDto { Success = true, Data = "User added successfully" };
         }
 
-
-        public ResponseDto DeleteUser(ApplicationUser entity)
+        
+        public ResponseDto DeleteUser(string id)
         {
-            var user = _repository.GetById(entity.Id);
+            var user = _repository.GetById(id);
 
             if(user == null) return new ResponseDto { Success = false, Error = "User is not exists!" };
 
-            _repository.Delete(entity);
+            _repository.Delete(user);
             _unitOfWork.Commit();
             
             return new ResponseDto { Success = true, Data = "User deleted successfully" };
         }
 
-        public List<GetUserDto> GetPagedUsers(int page)
+        public PaginatedUsersDto GetPagedUsers(int page)
         {
             int totalUsers = _repository.Get().Count();
             int max = Convert.ToInt32(Math.Ceiling(totalUsers / 10.0));
 
-            var users = _repository.Get().Skip((page >= max ? max : page) - 1).Take(10).OrderBy(x => x.CreatedAt).ToList();
+            var users = _repository.Get().OrderByDescending(x => x.CreatedAt).Skip(((page >= max ? max : page) - 1)*10).Take(10).ToList();
 
             List<ApplicationUser> filteredUsers = new List<ApplicationUser>();
 
@@ -70,14 +76,14 @@ namespace BootcampProject.Core.Concretes
                 }
             });
 
-            return _mapper.Map<List<GetUserDto>>(filteredUsers);
+            return new PaginatedUsersDto { Users = _mapper.Map<List<GetUserDto>>(filteredUsers), TotalPages = max, CurrentPage = page };
         }
 
-        public GetUserDto GetUserById(string id)
+        public UpdateUserDto GetUserById(string id)
         {
             var user = _repository.GetById(id);
 
-            return user != null ? _mapper.Map<GetUserDto>(user) : null;
+            return _mapper.Map<UpdateUserDto>(user);
         }
 
         public ResponseDto UpdateUser(UpdateUserDto entity)
@@ -86,7 +92,15 @@ namespace BootcampProject.Core.Concretes
 
             if (user == null) return new ResponseDto { Success = false, Error = "User is not exists!" };
 
-            _repository.Update(_mapper.Map<ApplicationUser>(entity));
+            // tc ile mail kontrol et
+            var userTCNoExists = _unitOfWork.Context.Users.Any(x => x.TCNo == entity.TCNo && x.Id != entity.Id);
+
+            if (userTCNoExists) return new ResponseDto { Success = false, Error = "There is already a member in database with same TC number" };
+
+            _mapper.Map(entity, user);
+            _userManager.UpdateAsync(user).Wait();
+
+            _repository.Update(user);
             _unitOfWork.Commit();
 
             return new ResponseDto { Success = true, Data = "User updated successfully" };

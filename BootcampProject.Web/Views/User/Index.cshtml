@@ -1,13 +1,30 @@
 ﻿@using BootcampProject.Core.DTOs
-@model UserActionDto
+@model PaginatedUsersDto
 @{
     Layout = "_Layout";
     ViewData["Title"] = "Users";
-    int rowCount = 0;
 }
 
 
-<div class="row mt-5">
+@if (TempData["Message"] != null)
+{
+    try
+    {
+        if (TempData["Message"].ToString() != "")
+        {
+            <div id="success"></div>
+        }
+
+    }
+    catch (Exception ex)
+    {
+
+    }
+
+}
+
+
+<div class="row mt-5 mb-5">
     <div class="col-10 offset-1">
         <div class="card">
             <div class="card-header">
@@ -48,18 +65,33 @@
                                 <td>@(user.CarPlateNumber != null ? user.CarPlateNumber : "-")</td>
                                 <td>@user.CreatedAt.ToShortDateString()</td>
                                 <td>
-                                    <button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#edit-modal" onclick="editUser(@(user.Id), @(rowCount))">
+                                    <a class="btn btn-sm btn-warning" asp-action="Update" asp-controller="User" asp-route-id="@user.Id">
                                         <i class="fa-regular fa-pen-to-square"></i>
-                                    </button>
-                                    <button class="btn btn-sm btn-danger">
+                                    </a>
+                                    <a class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modal-delete" onclick="getId('@user.Id')">
                                         <i class="fa fa-trash"></i>
-                                    </button>
+                                    </a>
                                 </td>
                             </tr>
-                            rowCount++;
                         }
                     </tbody>
                 </table>
+                <div class="card-footer clearfix">
+                    <ul class="pagination pagination-sm m-0 float-right">
+                        <li class="page-item"><a class="page-link" asp-action="Index" asp-controller="User" asp-route-id="1">&laquo;</a></li>
+                        @for (int page = Model.CurrentPage; page <= (Model.CurrentPage + 3 <= Model.TotalPages ? Model.CurrentPage + 3 : Model.TotalPages); page++)
+                        {
+                            @*<li class="page-item"><a class="page-link" asp-action="Index" asp-controller="User" asp-route-id="@(page)">@(page)</a></li>*@
+                            <li class="page-item">
+                                @Html.ActionLink(page.ToString(), "Index", "User", null, null, null, new { page = page }, new { @class = "page-link" })
+
+
+
+                            </li>
+                        }
+                        <li class="page-item"><a class="page-link" asp-action="Index" asp-controller="User" asp-route-id="@Model.TotalPages">&raquo;</a></li>
+                    </ul>
+                </div>
             </div>
             <!-- /.card-body -->
         </div>
@@ -67,77 +99,23 @@
     </div>
 </div>
 
-<div class="modal fade" id="edit-modal">
+<div class="modal fade" id="modal-delete">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Edit User</h4>
+                <h4 class="modal-title">Are you sure?</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-
-            @*@using (Html.BeginForm("Update", "User", FormMethod.Post))
-            {
-                @Html.AntiForgeryToken()
-
-                <div class="modal-body">
-                    <p class="text-danger">@TempData["UpdateError"]</p>
-                    <input hidden value="" id="userId" />
-
-                    <div class="mb-3">
-                        <div class="input-group">
-                            @Html.TextBoxFor(x => x.EditUser.Name, new {@class = "form-control", placeholder = "Name", id="Name"})
-                        </div>
-                        @Html.ValidationMessageFor(x => x.EditUser.Name, null, new {@class = "text-danger mb-1"})
-                    </div>
-
-                    <div class="mb-3">
-                        <div class="input-group">
-                            @Html.TextBoxFor(x => x.EditUser.Surname, new {@class = "form-control", placeholder = "Surname", id="Surname"})
-                        </div>
-                        @Html.ValidationMessageFor(x => x.EditUser.Surname, null, new {@class = "text-danger mb-1"})
-                    </div>
-
-                    <div class="mb-3">
-                        <div class="input-group">
-                            @Html.TextBoxFor(x => x.EditUser.TCNo, new {@class = "form-control", placeholder = "TC number", maxlength="11", id="TCNumber"})
-                        </div>
-                        @Html.ValidationMessageFor(x => x.EditUser.TCNo, null, new {@class = "text-danger mb-1"})
-                    </div>
-
-                    <div class="mb-3">
-                        <div class="input-group">
-                            @Html.TextBoxFor(x => x.EditUser.Email, new {@class = "form-control", placeholder = "Email", type="email", id="Email"})
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <span class="fas fa-envelope"></span>
-                                </div>
-                            </div>
-                        </div>
-                        @Html.ValidationMessageFor(x => x.EditUser.Email, null, new {@class = "text-danger mb-1"})
-                    </div>
-
-                    <div class="mb-3">
-                        <div class="input-group">
-                            @Html.TextBoxFor(x => x.EditUser.PhoneNumber, new {@class = "form-control", placeholder = "Phone Ex: 555 55 55", maxlength="10", id="PhoneNumber"})
-                        </div>
-                        @Html.ValidationMessageFor(x => x.EditUser.PhoneNumber, null, new {@class = "text-danger mb-1"})
-                    </div>
-
-                    <div class="mb-3">
-                        <div class="input-group">
-                            @Html.TextBoxFor(x => x.EditUser.CarPlateNumber, new {@class = "form-control", placeholder = "Plate Number ex : 34AZ123", maxlength="8", id="CarPlateNumber"})
-                        </div>
-                        @Html.ValidationMessageFor(x => x.EditUser.CarPlateNumber, null, new {@class = "text-danger mb-1"})
-                    </div>
-
-                </div>
-                <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
-                </div>
-            }*@
+            <div class="modal-body">
+                <p>Do you really want to delete this record? This process cannot be undone.</p>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-sm btn-danger" id="modalDeleteButton" href="">Delete</a>
+                @*href="@Url.Action("Delete", "User",new{ id=@type.Id})*@
+            </div>
         </div>
         <!-- /.modal-content -->
     </div>
@@ -146,25 +124,28 @@
 
 @section scripts{
 
-<script src="../../plugins/sweetalert2/sweetalert2.min.js"></script>
 <script type="text/javascript">
 
-    function editUser(userIdNumber, rowNumber){
-        console.log("clicked!!");
-        console.log(userIdNumber + " " + rowNumber);
-        $("#userId").value = userId;
-    }
+        function getId(clicked_id) {
+            this.clickId = clicked_id;
+            console.log(clickId);
 
-    $(document).Toasts('create', {
-        class: 'bg-success',
-        title: 'Toast Title',
-        subtitle: 'Subtitle',
-        body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.',
-        autohide: true,
-        showDuration: 3000,
-        hideDuration: 3000,
-        timeOut : 3000
-      })
+            $('#modalDeleteButton').attr("href", "/User/Delete/"+clicked_id)
+         }
+
+         $(document).ready(function() {
+            var success = @((TempData["Message"] != null).ToString().ToLower());
+
+            if (success == true) {
+                $(document).Toasts('create', {
+            class: 'bg-success',
+            title: 'Success',
+            subtitle: '',
+            body: '@TempData["Message"]'
+          })
+            }
+        });
 
 </script>
 }
+

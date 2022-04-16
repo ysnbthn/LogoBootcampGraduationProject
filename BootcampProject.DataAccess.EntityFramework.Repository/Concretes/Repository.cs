@@ -21,7 +21,7 @@ namespace BootcampProject.DataAccess.EntityFramework.Repository.Concretes
 
         public void Delete(T entity)
         {
-            T exist = _unitOfWork.Context.Set<T>().Find(entity.Id);
+            T exist = _unitOfWork.Context.Set<T>().Find(entity.Id.ToString());
             if (exist != null)
             {
                 exist.IsDeleted = true;
@@ -37,7 +37,8 @@ namespace BootcampProject.DataAccess.EntityFramework.Repository.Concretes
 
         public T GetById(string id)
         {
-            return _unitOfWork.Context.Set<T>().Find(id);
+            var user = _unitOfWork.Context.Set<T>().Find(id);
+            return user;
         }
 
         public void Update(T entity)

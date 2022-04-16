@@ -7,10 +7,10 @@ namespace BootcampProject.Core.Abstract
 {
     public interface IUserService
     {
-        List<GetUserDto> GetPagedUsers(int page);
-        GetUserDto GetUserById(string id);
+        PaginatedUsersDto GetPagedUsers(int page);
+        UpdateUserDto GetUserById(string id);
         ResponseDto AddUser(CreateUserDto entity);
         ResponseDto UpdateUser(UpdateUserDto entity);
-        ResponseDto DeleteUser(ApplicationUser entity);
+        ResponseDto DeleteUser(string entityId);
     }
 }

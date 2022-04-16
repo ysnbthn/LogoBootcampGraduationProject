@@ -1,8 +1,6 @@
 ﻿using BootcampProject.Core.Abstract;
 using BootcampProject.Core.DTOs;
-using BootcampProject.Web.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
 
 namespace BootcampProject.Web.Controllers
 {
@@ -15,12 +13,10 @@ namespace BootcampProject.Web.Controllers
             _userService = userService;
         }
 
-        [HttpGet]
-        public IActionResult Index([FromQuery] int page = 1)
+        public IActionResult Index(int page = 1)
         {
-            var users = _userService.GetPagedUsers(page);
-
-            return View(new UserActionDto { Users = users });
+            
+            return View(_userService.GetPagedUsers(page));
         }
 
         [HttpGet]
@@ -39,30 +35,61 @@ namespace BootcampProject.Web.Controllers
 
             var result = _userService.AddUser(user);
 
-            if (result.Success) return RedirectToAction("Index");
+            if (result.Success) 
+            {
+                TempData["Success"] = result.Data;
+                return RedirectToAction("Index", TempData);
+            } 
+                
 
             TempData["Error"] = result.Error;
 
-            return View();
+            return RedirectToAction("Index", TempData);
         }
 
-        
-
-        [HttpPut]
-        public IActionResult Update([FromForm] UpdateUserDto user, [FromQuery] int page = 1)
+        [HttpGet("{id}")]
+        public IActionResult Update(string id)
         {
-            if (ModelState.IsValid)
+            var userToUpdate = _userService.GetUserById(id);
+            return View(userToUpdate);
+        }
+
+        [HttpPost("{id}")]
+        public IActionResult Update([FromForm] UpdateUserDto user, string id)
+        {
+            user.Id = id;
+            if (!ModelState.IsValid)
             {
-                var result = _userService.UpdateUser(user);
-
-                var users = _userService.GetPagedUsers(page);
-
-                return View("Index", new UserActionDto { Users = users, Result = result });
+                return View(user);
             }
 
-            return View("Index", new UserActionDto { Users = _userService.GetPagedUsers(1), EditUser = user });
+            var result = _userService.UpdateUser(user);
+
+            if (result.Success)
+            {
+                TempData["Message"] = result.Data;
+                return RedirectToAction("Index", TempData);
+            }
+
+            TempData["Error"] = result.Error;
+
+            return View(user);
         }
 
-        
+        public IActionResult Delete(string id)
+        {
+            var result = _userService.DeleteUser(id);
+
+            if (result.Success)
+            {
+                TempData["Message"] = result.Data;
+                return RedirectToAction("Index", TempData);
+            }
+
+            TempData["Message"] = result.Error;
+
+            return RedirectToAction("Index", TempData);
+        }
+
     }
 }
