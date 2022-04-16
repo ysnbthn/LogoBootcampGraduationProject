@@ -1,13 +1,11 @@
-﻿@using BootcampProject.Core.DTOs
-@model PaginatedUsersDto
+﻿@using BootcampProject.Core.DTOs.ApartmentDtos
+@model PaginatedApartmentsDto
 @{
     Layout = "_Layout";
-    ViewData["Title"] = "Users";
+    ViewData["Title"] = "Apartments";
 }
 
-
 <div id="success"></div>
-
 
 <div class="row mt-5 mb-5">
     <div class="col-10 offset-1">
@@ -17,8 +15,8 @@
 
                 <div class="card-tools">
                     <div class="input-group input-group-sm" style="width: 150px;">
-                        <a class="btn btn-sm btn-success" asp-action="Create" asp-controller="User">
-                            <i class="fa-solid fa-user-plus mr-1"></i> Create New User
+                        <a class="btn btn-sm btn-success" asp-action="Create" asp-controller="Apartment">
+                            <i class="fa-solid fa-user-plus mr-1"></i> Create New Apartment
                         </a>
                     </div>
                 </div>
@@ -28,32 +26,32 @@
                 <table class="table table-hover text-nowrap text-center">
                     <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Surname</th>
-                            <th>TC Number</th>
-                            <th>Email</th>
-                            <th>Phone Number</th>
-                            <th>Car Plate</th>
+                            <th>Apartment Number</th>
+                            <th>Floor</th>
+                            <th>Block</th>
+                            <th>Occupation Status</th>
+                            <th>Occupied by</th>
+                            <th>Owner Mail</th>
                             <th>Registered Date</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var user in Model.Users)
+                        @foreach (var apartment in Model.Apartments)
                         {
                             <tr>
-                                <td>@user.Name</td>
-                                <td>@user.Surname</td>
-                                <td>@user.TCNo</td>
-                                <td>@user.Email</td>
-                                <td>@user.PhoneNumber</td>
-                                <td>@(user.CarPlateNumber != null ? user.CarPlateNumber : "-")</td>
-                                <td>@user.CreatedAt.ToShortDateString()</td>
+                                <td>@apartment.ApartmentNumber</td>
+                                <td>@apartment.Floor</td>
+                                <td>@apartment.BlockName</td>
+                                <td>@apartment.Occupied</td>
+                                <td>@apartment.OwnerFullName</td>
+                                <td>@apartment.OwnerEmail</td>
+                                <td>@apartment.CreatedAt.ToShortDateString()</td>
                                 <td>
-                                    <a class="btn btn-sm btn-warning" asp-action="Update" asp-controller="User" asp-route-id="@user.Id">
+                                    <a class="btn btn-sm btn-warning" asp-action="Update" asp-controller="Apartment" asp-route-id="@apartment.Id">
                                         <i class="fa-regular fa-pen-to-square"></i>
                                     </a>
-                                    <a class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modal-delete" onclick="getId('@user.Id')">
+                                    <a class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modal-delete" onclick="getId('@apartment.Id')">
                                         <i class="fa fa-trash"></i>
                                     </a>
                                 </td>
@@ -99,7 +97,6 @@
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                 <a class="btn btn-sm btn-danger" id="modalDeleteButton" href="">Delete</a>
-                @*href="@Url.Action("Delete", "User",new{ id=@type.Id})*@
             </div>
         </div>
         <!-- /.modal-content -->
@@ -115,7 +112,7 @@
             this.clickId = clicked_id;
             console.log(clickId);
 
-            $('#modalDeleteButton').attr("href", "/User/Delete/"+clicked_id)
+            $('#modalDeleteButton').attr("href", "/Apartment/Delete/"+clicked_id)
          }
 
          $(document).ready(function() {

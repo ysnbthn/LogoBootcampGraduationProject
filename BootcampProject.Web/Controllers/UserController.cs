@@ -1,9 +1,11 @@
 ﻿using BootcampProject.Core.Abstract;
 using BootcampProject.Core.DTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BootcampProject.Web.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class UserController : Controller
     {
         private readonly IUserService _userService;
@@ -37,7 +39,7 @@ namespace BootcampProject.Web.Controllers
 
             if (result.Success) 
             {
-                TempData["Success"] = result.Data;
+                TempData["Message"] = result.Data;
                 return RedirectToAction("Index", TempData);
             } 
                 

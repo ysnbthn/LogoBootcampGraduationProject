@@ -6,7 +6,7 @@ namespace BootcampProject.Domain.Entities
     {
         public string Name { get; set; }
 
-        public Guid Id { get => Id; set => Guid.NewGuid().ToString(); }
+        public Guid Id { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }

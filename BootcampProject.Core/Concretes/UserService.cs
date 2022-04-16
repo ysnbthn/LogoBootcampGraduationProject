@@ -62,7 +62,7 @@ namespace BootcampProject.Core.Concretes
         public PaginatedUsersDto GetPagedUsers(int page)
         {
             int totalUsers = _repository.Get().Count();
-            int max = Convert.ToInt32(Math.Ceiling(totalUsers / 10.0));
+            int max = Convert.ToInt32(Math.Ceiling(totalUsers / 10.0)) == 0 ? 1 : Convert.ToInt32(Math.Ceiling(totalUsers / 10.0));
 
             var users = _repository.Get().OrderByDescending(x => x.CreatedAt).Skip(((page >= max ? max : page) - 1)*10).Take(10).ToList();
 

@@ -12,6 +12,10 @@ namespace BootcampProject.DataAccess.EntityFramework
         {
         }
 
+        public DbSet<Apartment> Apartments { get; set; }
+        public DbSet<Block> Blocks { get; set; }
+        public DbSet<FlatType> FlatTypes { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

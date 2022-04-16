@@ -18,7 +18,7 @@ namespace BootcampProject.Domain.Entities
         public Guid BlockId { get; set; }
         public Block Block { get; set; }
 
-        public Guid OwnerOrHirerId { get; set; }
+        public Guid? OwnerOrHirerId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
         
         public Guid Id { get => Id; set => Guid.NewGuid().ToString(); }

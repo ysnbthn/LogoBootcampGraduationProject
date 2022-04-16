@@ -1,0 +1,56 @@
+﻿@using BootcampProject.Core.DTOs.ApartmentDtos
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Create New Apartment";
+}
+@model CreateApartmentDto
+
+<div class="row mt-5 mb-5">
+    <div class="col-10 offset-1">
+        @using (Html.BeginForm("Create", "Apartment", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="card-body">
+                    <p class="text-danger">@TempData["CreateError"]</p>
+
+                    <div class="mb-3">
+                        <div class="input-group">
+                            @Html.TextBoxFor(x => x.ApartmentNumber, new {@class = "form-control", placeholder = "Door Number", type="number"})
+                        </div>
+                        @Html.ValidationMessageFor(x => x.ApartmentNumber, null, new {@class = "text-danger mb-1"})
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="input-group">
+                            @Html.TextBoxFor(x => x.Floor, new {@class = "form-control", placeholder = "Floor", type="number"})
+                        </div>
+                        @Html.ValidationMessageFor(x => x.Floor, null, new {@class = "text-danger mb-1"})
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="input-group">
+                            @*@Html.DropDownListFor(x => x.OwnerOrHirerId, new SelectList(ViewBag.Users, "OwnerOrHirerId", "Email"), "Select User", new { @class = "form-control"})*@
+                            @Html.DropDownListFor(x => x.OwnerOrHirerId, (List<SelectListItem>)ViewBag.Users, "Select User", new { @class = "form-control"})
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="input-group">
+                            @Html.DropDownListFor(x => x.FlatTypeId, new SelectList(ViewBag.FlatTypes, "Id", "Name"), "Select type of apartment", new { @class = "form-control"})
+                        </div>
+                        @Html.ValidationMessageFor(x => x.FlatTypeId, null, new {@class = "text-danger mb-1"})
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="input-group">
+                            @Html.DropDownListFor(x => x.BlockId, new SelectList(ViewBag.Blocks, "Id", "Name"), "Select type of apartment", new { @class = "form-control"})
+                        </div>
+                        @Html.ValidationMessageFor(x => x.BlockId, null, new {@class = "text-danger mb-1"})
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            }
+    </div>
+</div>

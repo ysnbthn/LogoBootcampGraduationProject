@@ -46,12 +46,12 @@ namespace BootcampProject.DataAccess.EntityFramework.Seed
         {
             var basic = new ApplicationUser
             {
-                UserName = "test@test.com",
-                Email = "test@test.com",
+                UserName = "yasinbatuhanozyurek@gmail.com",
+                Email = "yasinbatuhanozyurek@gmail.com",
                 Name = "Yasin Batuhan",
                 Surname = "Özyürek",
                 TCNo = "12345678902",
-                PhoneNumber = "05555555556",
+                PhoneNumber = "05395555555",
                 CreatedAt = DateTime.Now,
                 IsDeleted = false,
                 EmailConfirmed = true
