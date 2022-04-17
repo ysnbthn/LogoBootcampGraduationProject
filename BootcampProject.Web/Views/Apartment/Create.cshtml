@@ -30,7 +30,6 @@
 
                     <div class="mb-3">
                         <div class="input-group">
-                            @*@Html.DropDownListFor(x => x.OwnerOrHirerId, new SelectList(ViewBag.Users, "OwnerOrHirerId", "Email"), "Select User", new { @class = "form-control"})*@
                             @Html.DropDownListFor(x => x.OwnerOrHirerId, (List<SelectListItem>)ViewBag.Users, "Select User", new { @class = "form-control"})
                         </div>
                     </div>
@@ -47,6 +46,17 @@
                             @Html.DropDownListFor(x => x.BlockId, new SelectList(ViewBag.Blocks, "Id", "Name"), "Select type of apartment", new { @class = "form-control"})
                         </div>
                         @Html.ValidationMessageFor(x => x.BlockId, null, new {@class = "text-danger mb-1"})
+                    </div>
+
+                    
+
+                    <div class="mb-3">
+                        <div class="icheck-primary">
+                            <label class="mr-2" for="remember">
+                                    Is occupied? 
+                                </label>
+                            @Html.CheckBoxFor(x => x.Occupied)
+                        </div>
                     </div>
                     
                     <button type="submit" class="btn btn-primary">Save changes</button>

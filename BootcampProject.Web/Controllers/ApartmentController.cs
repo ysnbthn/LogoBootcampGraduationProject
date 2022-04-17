@@ -51,12 +51,27 @@ namespace BootcampProject.Web.Controllers
 
             if (result.Success)
             {
-                //TempData["Message"] = result.Data;
-                return RedirectToAction("Index");
+                TempData["Message"] = result.Data;
+                return RedirectToAction("Index", TempData);
             }
             
-            //TempData["Message"] = result.Error;
-            return RedirectToAction("Index");
+            TempData["Message"] = result.Error;
+            return RedirectToAction("Index", TempData);
+        }
+
+        public IActionResult Delete(int id)
+        {
+            var result = _apartmentService.DeleteApartment(id);
+
+            if (result.Success)
+            {
+                TempData["Message"] = result.Data;
+                return RedirectToAction("Index", TempData);
+            }
+
+            TempData["Message"] = result.Error;
+
+            return RedirectToAction("Index", TempData);
         }
     }
 }

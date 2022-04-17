@@ -21,6 +21,7 @@ namespace BootcampProject.Core.Validators
             RuleFor(a => a.ApartmentNumber)
                 .NotNull()
                 .NotEmpty()
+                .GreaterThan(0)
                 .WithMessage("Apartment number is required")
                 .ExclusiveBetween(0, 400)
                 .WithMessage("Room number must be between 0 and 400");

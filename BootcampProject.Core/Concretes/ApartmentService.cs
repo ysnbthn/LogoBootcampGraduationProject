@@ -27,28 +27,26 @@ namespace BootcampProject.Core.Concretes
 
         public ResponseDto AddApartment(CreateApartmentDto entity)
         {
-            var apartmentExists = _repository.Get().Any(x => x.ApartmentNumber == entity.ApartmentNumber);
+            var apartmentExists = _repository.Get().Any(x => x.ApartmentNumber == entity.ApartmentNumber && x.BlockId == entity.BlockId);
 
             if (apartmentExists) return new ResponseDto { Error = "Apartment already exists", Success = false };
 
-            Apartment apart = new Apartment
-            {
-                Occupied = entity.OwnerOrHirerId == 0 ? true : false,
-                Floor = entity.Floor,
-                ApartmentNumber = entity.ApartmentNumber,
-                FlatTypeId = entity.FlatTypeId,
-                ApplicationUserId = entity.OwnerOrHirerId,
-                BlockId = entity.BlockId,
-                IsDeleted = false
-            };
-
-            _repository.Add(apart);
-
-            //entity.Occupied = entity.OwnerOrHirerId.ToString() != "" || entity.OwnerOrHirerId.ToString() != null ? true : false;
-            //_repository.Add(_mapper.Map<Apartment>(entity));
+            _repository.Add(_mapper.Map<Apartment>(entity));
             _unitOfWork.Commit();
             
             return new ResponseDto { Success = true, Data = "Apartment created successfully" };
+        }
+
+        public ResponseDto DeleteApartment(int entityId)
+        {
+            var apartment = _repository.GetById(new ApplicationUser { Id = entityId }.Id);
+
+            if (apartment == null) return new ResponseDto { Success = false, Error = "User is not exists!" };
+
+            _repository.Delete(apartment);
+            _unitOfWork.Commit();
+
+            return new ResponseDto { Success = true, Data = "User deleted successfully" };
         }
 
         public List<BlockDto> GetBlocks()

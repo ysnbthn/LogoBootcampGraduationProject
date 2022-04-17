@@ -22,7 +22,5 @@ namespace BootcampProject.Domain.Entities
 
         public int ApplicationUserId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
-
-        
     }
 }

@@ -16,6 +16,6 @@ namespace BootcampProject.Core.Abstract
         //UpdateUserDto GetUserById(string id);
 
         //ResponseDto UpdateUser(UpdateUserDto entity);
-        //ResponseDto DeleteUser(string entityId);
+        ResponseDto DeleteApartment(int entityId);
     }
 }
