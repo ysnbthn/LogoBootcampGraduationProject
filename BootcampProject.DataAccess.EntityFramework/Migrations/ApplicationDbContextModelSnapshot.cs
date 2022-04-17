@@ -22,18 +22,19 @@ namespace BootcampProject.DataAccess.EntityFramework.Migrations
 
             modelBuilder.Entity("BootcampProject.Domain.Entities.Apartment", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("ApartmentNumber")
                         .HasColumnType("int");
 
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int?>("ApplicationUserId")
+                        .HasColumnType("int");
 
-                    b.Property<Guid>("BlockId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("BlockId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -41,8 +42,8 @@ namespace BootcampProject.DataAccess.EntityFramework.Migrations
                     b.Property<DateTime>("DeletedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("FlatTypeId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("FlatTypeId")
+                        .HasColumnType("int");
 
                     b.Property<int>("Floor")
                         .HasColumnType("int");
@@ -53,8 +54,8 @@ namespace BootcampProject.DataAccess.EntityFramework.Migrations
                     b.Property<bool>("Occupied")
                         .HasColumnType("bit");
 
-                    b.Property<Guid>("OwnerOrHirerId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int?>("OwnerOrHirerId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
@@ -70,10 +71,41 @@ namespace BootcampProject.DataAccess.EntityFramework.Migrations
                     b.ToTable("Apartments");
                 });
 
+            modelBuilder.Entity("BootcampProject.Domain.Entities.ApplicationRole", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.ToTable("Roles");
+                });
+
             modelBuilder.Entity("BootcampProject.Domain.Entities.ApplicationUser", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
@@ -172,9 +204,10 @@ namespace BootcampProject.DataAccess.EntityFramework.Migrations
 
             modelBuilder.Entity("BootcampProject.Domain.Entities.Block", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -200,8 +233,8 @@ namespace BootcampProject.DataAccess.EntityFramework.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("b70d5457-0448-4eac-bc07-35d7dad426fb"),
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Id = 1,
+                            CreatedAt = new DateTime(2022, 4, 17, 2, 15, 58, 553, DateTimeKind.Local).AddTicks(5209),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "A",
@@ -209,8 +242,8 @@ namespace BootcampProject.DataAccess.EntityFramework.Migrations
                         },
                         new
                         {
-                            Id = new Guid("ac122590-cb89-473f-b295-7241cca9df2b"),
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Id = 2,
+                            CreatedAt = new DateTime(2022, 4, 17, 2, 15, 58, 554, DateTimeKind.Local).AddTicks(7849),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "B",
@@ -218,8 +251,8 @@ namespace BootcampProject.DataAccess.EntityFramework.Migrations
                         },
                         new
                         {
-                            Id = new Guid("690bf294-bce6-44c9-8d65-51d30ed44a15"),
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Id = 3,
+                            CreatedAt = new DateTime(2022, 4, 17, 2, 15, 58, 554, DateTimeKind.Local).AddTicks(7867),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "A1",
@@ -229,9 +262,10 @@ namespace BootcampProject.DataAccess.EntityFramework.Migrations
 
             modelBuilder.Entity("BootcampProject.Domain.Entities.FlatType", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -257,8 +291,8 @@ namespace BootcampProject.DataAccess.EntityFramework.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("8411ecf5-fe64-4c1f-8cb1-93e5e161da57"),
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Id = 1,
+                            CreatedAt = new DateTime(2022, 4, 17, 2, 15, 58, 556, DateTimeKind.Local).AddTicks(4753),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "1+1",
@@ -266,8 +300,8 @@ namespace BootcampProject.DataAccess.EntityFramework.Migrations
                         },
                         new
                         {
-                            Id = new Guid("78f50e54-a325-489b-933e-1d71f36bd8c4"),
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Id = 2,
+                            CreatedAt = new DateTime(2022, 4, 17, 2, 15, 58, 556, DateTimeKind.Local).AddTicks(5062),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "2+1",
@@ -275,8 +309,8 @@ namespace BootcampProject.DataAccess.EntityFramework.Migrations
                         },
                         new
                         {
-                            Id = new Guid("666ef510-f238-4f0e-89a4-fd0317955b04"),
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Id = 3,
+                            CreatedAt = new DateTime(2022, 4, 17, 2, 15, 58, 556, DateTimeKind.Local).AddTicks(5067),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "3+1",
@@ -284,8 +318,8 @@ namespace BootcampProject.DataAccess.EntityFramework.Migrations
                         },
                         new
                         {
-                            Id = new Guid("f08c6599-f368-4ce1-b9c5-ef94d4558cc3"),
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Id = 4,
+                            CreatedAt = new DateTime(2022, 4, 17, 2, 15, 58, 556, DateTimeKind.Local).AddTicks(5068),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "4+2",
@@ -293,34 +327,7 @@ namespace BootcampProject.DataAccess.EntityFramework.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("NormalizedName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedName")
-                        .IsUnique()
-                        .HasDatabaseName("RoleNameIndex")
-                        .HasFilter("[NormalizedName] IS NOT NULL");
-
-                    b.ToTable("Roles");
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -333,9 +340,8 @@ namespace BootcampProject.DataAccess.EntityFramework.Migrations
                     b.Property<string>("ClaimValue")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("RoleId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -344,7 +350,7 @@ namespace BootcampProject.DataAccess.EntityFramework.Migrations
                     b.ToTable("RoleClaims");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -357,9 +363,8 @@ namespace BootcampProject.DataAccess.EntityFramework.Migrations
                     b.Property<string>("ClaimValue")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -368,7 +373,7 @@ namespace BootcampProject.DataAccess.EntityFramework.Migrations
                     b.ToTable("UserClaims");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
                 {
                     b.Property<string>("LoginProvider")
                         .HasColumnType("nvarchar(450)");
@@ -379,9 +384,8 @@ namespace BootcampProject.DataAccess.EntityFramework.Migrations
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("LoginProvider", "ProviderKey");
 
@@ -390,13 +394,13 @@ namespace BootcampProject.DataAccess.EntityFramework.Migrations
                     b.ToTable("UserLogins");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", b =>
                 {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("RoleId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
 
                     b.HasKey("UserId", "RoleId");
 
@@ -405,10 +409,10 @@ namespace BootcampProject.DataAccess.EntityFramework.Migrations
                     b.ToTable("UserRoles");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
                 {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.Property<string>("LoginProvider")
                         .HasColumnType("nvarchar(450)");
@@ -449,16 +453,16 @@ namespace BootcampProject.DataAccess.EntityFramework.Migrations
                     b.Navigation("FlatType");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                    b.HasOne("BootcampProject.Domain.Entities.ApplicationRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
                 {
                     b.HasOne("BootcampProject.Domain.Entities.ApplicationUser", null)
                         .WithMany()
@@ -467,7 +471,7 @@ namespace BootcampProject.DataAccess.EntityFramework.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
                 {
                     b.HasOne("BootcampProject.Domain.Entities.ApplicationUser", null)
                         .WithMany()
@@ -476,9 +480,9 @@ namespace BootcampProject.DataAccess.EntityFramework.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                    b.HasOne("BootcampProject.Domain.Entities.ApplicationRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -491,7 +495,7 @@ namespace BootcampProject.DataAccess.EntityFramework.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
                 {
                     b.HasOne("BootcampProject.Domain.Entities.ApplicationUser", null)
                         .WithMany()

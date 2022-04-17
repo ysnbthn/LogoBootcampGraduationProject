@@ -47,7 +47,7 @@ namespace BootcampProject.Core.Concretes
         }
 
         
-        public ResponseDto DeleteUser(string id)
+        public ResponseDto DeleteUser(int id)
         {
             var user = _repository.GetById(id);
 
@@ -79,7 +79,7 @@ namespace BootcampProject.Core.Concretes
             return new PaginatedUsersDto { Users = _mapper.Map<List<GetUserDto>>(filteredUsers), TotalPages = max, CurrentPage = page };
         }
 
-        public UpdateUserDto GetUserById(string id)
+        public UpdateUserDto GetUserById(int id)
         {
             var user = _repository.GetById(id);
 

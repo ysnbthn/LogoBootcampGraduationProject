@@ -19,6 +19,7 @@ namespace BootcampProject.DataAccess.EntityFramework.Seed
         {
             var admin = new ApplicationUser
             {
+                Id = 0,
                 UserName = "admin@admin.com",
                 Email = "admin@admin.com",
                 Name = "Yasin Batuhan",
@@ -46,6 +47,7 @@ namespace BootcampProject.DataAccess.EntityFramework.Seed
         {
             var basic = new ApplicationUser
             {
+                Id = 0,
                 UserName = "yasinbatuhanozyurek@gmail.com",
                 Email = "yasinbatuhanozyurek@gmail.com",
                 Name = "Yasin Batuhan",

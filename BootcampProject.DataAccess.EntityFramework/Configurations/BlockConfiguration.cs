@@ -14,9 +14,9 @@ namespace BootcampProject.DataAccess.EntityFramework.Configurations
             builder.Property(b => b.Name).HasMaxLength(3).IsRequired();
 
             builder.HasData(
-                new Block { Id = Guid.NewGuid(), Name = "A", CreatedAt = DateTime.Now },
-                new Block { Id = Guid.NewGuid(), Name = "B", CreatedAt = DateTime.Now },
-                new Block { Id = Guid.NewGuid(), Name = "A1", CreatedAt = DateTime.Now }
+                new Block { Id = 1, Name = "A", CreatedAt = DateTime.Now },
+                new Block { Id = 2, Name = "B", CreatedAt = DateTime.Now },
+                new Block { Id = 3, Name = "A1", CreatedAt = DateTime.Now }
                 );
         }
     }

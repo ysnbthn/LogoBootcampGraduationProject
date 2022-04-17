@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace BootcampProject.DataAccess.EntityFramework.Configurations
 {
-    public class IdentityUserLoginConfiguration : IEntityTypeConfiguration<IdentityUserLogin<string>>
+    public class IdentityUserLoginConfiguration : IEntityTypeConfiguration<IdentityUserLogin<int>>
     {
-        public void Configure(EntityTypeBuilder<IdentityUserLogin<string>> builder)
+        public void Configure(EntityTypeBuilder<IdentityUserLogin<int>> builder)
         {
             builder.ToTable("UserLogins");
         }

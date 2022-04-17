@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BootcampProject.DataAccess.EntityFramework.Migrations
 {
-    public partial class Initial : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,11 +11,48 @@ namespace BootcampProject.DataAccess.EntityFramework.Migrations
                 name: "BootcampProject");
 
             migrationBuilder.CreateTable(
+                name: "Blocks",
+                schema: "BootcampProject",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(3)", maxLength: 3, nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Blocks", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "FlatTypes",
+                schema: "BootcampProject",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FlatTypes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Roles",
                 schema: "BootcampProject",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -30,7 +67,8 @@ namespace BootcampProject.DataAccess.EntityFramework.Migrations
                 schema: "BootcampProject",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     Surname = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     TCNo = table.Column<string>(type: "nchar(11)", fixedLength: true, maxLength: 11, nullable: false),
@@ -66,7 +104,7 @@ namespace BootcampProject.DataAccess.EntityFramework.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    RoleId = table.Column<int>(type: "int", nullable: false),
                     ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -83,13 +121,58 @@ namespace BootcampProject.DataAccess.EntityFramework.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Apartments",
+                schema: "BootcampProject",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Occupied = table.Column<bool>(type: "bit", nullable: false),
+                    Floor = table.Column<int>(type: "int", nullable: false),
+                    ApartmentNumber = table.Column<int>(type: "int", nullable: false),
+                    FlatTypeId = table.Column<int>(type: "int", nullable: false),
+                    BlockId = table.Column<int>(type: "int", nullable: false),
+                    OwnerOrHirerId = table.Column<int>(type: "int", nullable: true),
+                    ApplicationUserId = table.Column<int>(type: "int", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Apartments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Apartments_Blocks_BlockId",
+                        column: x => x.BlockId,
+                        principalSchema: "BootcampProject",
+                        principalTable: "Blocks",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Apartments_FlatTypes_FlatTypeId",
+                        column: x => x.FlatTypeId,
+                        principalSchema: "BootcampProject",
+                        principalTable: "FlatTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Apartments_Users_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
+                        principalSchema: "BootcampProject",
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "UserClaims",
                 schema: "BootcampProject",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
                     ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -113,7 +196,7 @@ namespace BootcampProject.DataAccess.EntityFramework.Migrations
                     LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ProviderKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -132,8 +215,8 @@ namespace BootcampProject.DataAccess.EntityFramework.Migrations
                 schema: "BootcampProject",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    RoleId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -159,7 +242,7 @@ namespace BootcampProject.DataAccess.EntityFramework.Migrations
                 schema: "BootcampProject",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
                     LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -175,6 +258,47 @@ namespace BootcampProject.DataAccess.EntityFramework.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.InsertData(
+                schema: "BootcampProject",
+                table: "Blocks",
+                columns: new[] { "Id", "CreatedAt", "DeletedAt", "IsDeleted", "Name", "UpdatedAt" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2022, 4, 17, 2, 15, 58, 553, DateTimeKind.Local).AddTicks(5209), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "A", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 2, new DateTime(2022, 4, 17, 2, 15, 58, 554, DateTimeKind.Local).AddTicks(7849), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "B", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 3, new DateTime(2022, 4, 17, 2, 15, 58, 554, DateTimeKind.Local).AddTicks(7867), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "A1", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) }
+                });
+
+            migrationBuilder.InsertData(
+                schema: "BootcampProject",
+                table: "FlatTypes",
+                columns: new[] { "Id", "CreatedAt", "DeletedAt", "IsDeleted", "Name", "UpdatedAt" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2022, 4, 17, 2, 15, 58, 556, DateTimeKind.Local).AddTicks(4753), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "1+1", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 2, new DateTime(2022, 4, 17, 2, 15, 58, 556, DateTimeKind.Local).AddTicks(5062), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "2+1", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 3, new DateTime(2022, 4, 17, 2, 15, 58, 556, DateTimeKind.Local).AddTicks(5067), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "3+1", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 4, new DateTime(2022, 4, 17, 2, 15, 58, 556, DateTimeKind.Local).AddTicks(5068), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "4+2", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) }
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Apartments_ApplicationUserId",
+                schema: "BootcampProject",
+                table: "Apartments",
+                column: "ApplicationUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Apartments_BlockId",
+                schema: "BootcampProject",
+                table: "Apartments",
+                column: "BlockId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Apartments_FlatTypeId",
+                schema: "BootcampProject",
+                table: "Apartments",
+                column: "FlatTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RoleClaims_RoleId",
@@ -226,6 +350,10 @@ namespace BootcampProject.DataAccess.EntityFramework.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Apartments",
+                schema: "BootcampProject");
+
+            migrationBuilder.DropTable(
                 name: "RoleClaims",
                 schema: "BootcampProject");
 
@@ -243,6 +371,14 @@ namespace BootcampProject.DataAccess.EntityFramework.Migrations
 
             migrationBuilder.DropTable(
                 name: "UserTokens",
+                schema: "BootcampProject");
+
+            migrationBuilder.DropTable(
+                name: "Blocks",
+                schema: "BootcampProject");
+
+            migrationBuilder.DropTable(
+                name: "FlatTypes",
                 schema: "BootcampProject");
 
             migrationBuilder.DropTable(

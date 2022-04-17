@@ -10,6 +10,8 @@ using BootcampProject.DataAccess.EntityFramework.Repository.Concretes;
 using BootcampProject.Domain.Entities;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -37,10 +39,17 @@ namespace BootcampProject.Web
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultUI()
-                .AddDefaultTokenProviders();
+            //services.AddIdentity<ApplicationUser, IdentityRole>()
+            //    .AddEntityFrameworkStores<ApplicationDbContext>()
+            //    .AddDefaultUI()
+            //    .AddDefaultTokenProviders();
+
+            services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
+            {
+                options.User.RequireUniqueEmail = true;
+            }).AddEntityFrameworkStores<ApplicationDbContext>();
+
+
 
             services.AddControllersWithViews().AddFluentValidation(fv => 
                     {

@@ -50,14 +50,14 @@ namespace BootcampProject.Web.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult Update(string id)
+        public IActionResult Update(int id)
         {
             var userToUpdate = _userService.GetUserById(id);
             return View(userToUpdate);
         }
 
         [HttpPost("{id}")]
-        public IActionResult Update([FromForm] UpdateUserDto user, string id)
+        public IActionResult Update([FromForm] UpdateUserDto user, int id)
         {
             user.Id = id;
             if (!ModelState.IsValid)
@@ -78,7 +78,7 @@ namespace BootcampProject.Web.Controllers
             return View(user);
         }
 
-        public IActionResult Delete(string id)
+        public IActionResult Delete(int id)
         {
             var result = _userService.DeleteUser(id);
 

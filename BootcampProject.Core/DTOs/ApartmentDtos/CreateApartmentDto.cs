@@ -8,8 +8,8 @@ namespace BootcampProject.Core.DTOs.ApartmentDtos
         public int Floor { get; set; }
         public int ApartmentNumber { get; set; }
 
-        public Guid FlatTypeId { get; set; }
-        public Guid BlockId { get; set; }
-        public Guid OwnerOrHirerId { get; set; }
+        public int FlatTypeId { get; set; }
+        public int BlockId { get; set; }
+        public int OwnerOrHirerId { get; set; }
     }
 }

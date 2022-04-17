@@ -14,10 +14,10 @@ namespace BootcampProject.DataAccess.EntityFramework.Configurations
             builder.Property(f => f.Name).IsRequired().HasMaxLength(5);
 
             builder.HasData(
-                new FlatType { Id = Guid.NewGuid(), Name = "1+1", CreatedAt = DateTime.Now }, 
-                new FlatType { Id = Guid.NewGuid(), Name = "2+1", CreatedAt = DateTime.Now }, 
-                new FlatType { Id = Guid.NewGuid(), Name = "3+1", CreatedAt = DateTime.Now }, 
-                new FlatType { Id = Guid.NewGuid(), Name = "4+2", CreatedAt = DateTime.Now } 
+                new FlatType { Id = 1, Name = "1+1", CreatedAt = DateTime.Now }, 
+                new FlatType { Id = 2, Name = "2+1", CreatedAt = DateTime.Now }, 
+                new FlatType { Id = 3, Name = "3+1", CreatedAt = DateTime.Now }, 
+                new FlatType { Id = 4, Name = "4+2", CreatedAt = DateTime.Now } 
                 );
         }
     }
