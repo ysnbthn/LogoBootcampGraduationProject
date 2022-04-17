@@ -92,15 +92,14 @@ namespace BootcampProject.Core.Concretes
 
             if (user == null) return new ResponseDto { Success = false, Error = "User is not exists!" };
 
-            // tc ile mail kontrol et
             var userTCNoExists = _unitOfWork.Context.Users.Any(x => x.TCNo == entity.TCNo && x.Id != entity.Id);
 
             if (userTCNoExists) return new ResponseDto { Success = false, Error = "There is already a member in database with same TC number" };
 
             _mapper.Map(entity, user);
-            _userManager.UpdateAsync(user).Wait();
+            //_userManager.UpdateAsync(user).Wait();
 
-            _repository.Update(user);
+            _repository.Update(_mapper.Map<ApplicationUser>(user));
             _unitOfWork.Commit();
 
             return new ResponseDto { Success = true, Data = "User updated successfully" };

@@ -4,7 +4,6 @@ using BootcampProject.Core.DTOs;
 using BootcampProject.Core.DTOs.ApartmentDtos;
 using BootcampProject.DataAccess.EntityFramework.Repository.Abstracts;
 using BootcampProject.Domain.Entities;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -41,12 +40,19 @@ namespace BootcampProject.Core.Concretes
         {
             var apartment = _repository.GetById(new ApplicationUser { Id = entityId }.Id);
 
-            if (apartment == null) return new ResponseDto { Success = false, Error = "User is not exists!" };
+            if (apartment == null) return new ResponseDto { Success = false, Error = "Apartment is not exists!" };
 
             _repository.Delete(apartment);
             _unitOfWork.Commit();
 
-            return new ResponseDto { Success = true, Data = "User deleted successfully" };
+            return new ResponseDto { Success = true, Data = "Apartment deleted successfully" };
+        }
+
+        public UpdateApartmentDto GetApartmentById(int id)
+        {
+            var apartment = _repository.GetById(id);
+
+            return _mapper.Map<UpdateApartmentDto>(apartment);
         }
 
         public List<BlockDto> GetBlocks()
@@ -82,6 +88,24 @@ namespace BootcampProject.Core.Concretes
         {
             var residents = _unitOfWork.Context.Users.Where(x => x.IsDeleted == false).ToList();
             return _mapper.Map<List<ResidentsDto>>(residents);
+        }
+
+        public ResponseDto UpdateApartment(UpdateApartmentDto entity)
+        {
+            var apartment = _repository.GetById(entity.Id);
+
+            if (apartment == null) return new ResponseDto { Success = false, Error = "Apartment is not exists!" };
+
+            var apartmentIsExists = _unitOfWork.Context.Apartments.Any( x=>x.ApartmentNumber == entity.ApartmentNumber && x.BlockId == entity.BlockId && x.Id != entity.Id);
+
+            if (apartmentIsExists) return new ResponseDto { Success = false, Error = "There is already a Apartment in database with same Apartment number in same block" };
+
+            var mappedApartment = _mapper.Map(entity, apartment);
+
+            _repository.Update(mappedApartment);
+            _unitOfWork.Commit();
+
+            return new ResponseDto { Success = true, Data = "User updated successfully" };
         }
     }
 }

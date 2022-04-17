@@ -29,6 +29,7 @@
                             <th>Apartment Number</th>
                             <th>Floor</th>
                             <th>Block</th>
+                            <th>Type</th>
                             <th>Is Full?</th>
                             <th>Owner or Hirer Mail</th>
                             <th>Registered Date</th>
@@ -42,6 +43,7 @@
                                 <td>@apartment.ApartmentNumber</td>
                                 <td>@apartment.Floor</td>
                                 <td>@apartment.BlockName</td>
+                                <td>@apartment.FlatTypeName</td>
                                 <td>@(apartment.Occupied ? "Yes" : "No")</td>
                                 <td>@apartment.OwnerEmail</td>
                                 <td>@apartment.CreatedAt.ToShortDateString()</td>
@@ -59,17 +61,14 @@
                 </table>
                 <div class="card-footer clearfix">
                     <ul class="pagination pagination-sm m-0 float-right">
-                        <li class="page-item"><a class="page-link" asp-action="Index" asp-controller="User" asp-route-id="1">&laquo;</a></li>
+                        <li class="page-item"><a class="page-link" asp-action="Index" asp-controller="Apartment" asp-route-id="1">&laquo;</a></li>
                         @for (int page = Model.CurrentPage; page <= (Model.CurrentPage + 3 <= Model.TotalPages ? Model.CurrentPage + 3 : Model.TotalPages); page++)
                         {
                             <li class="page-item">
-                                @Html.ActionLink(page.ToString(), "Index", "User", null, null, null, new { page = page }, new { @class = "page-link" })
-
-
-
+                                @Html.ActionLink(page.ToString(), "Index", "Apartment", null, null, null, new { page = page }, new { @class = "page-link" })
                             </li>
                         }
-                        <li class="page-item"><a class="page-link" asp-action="Index" asp-controller="User" asp-route-id="@Model.TotalPages">&raquo;</a></li>
+                        <li class="page-item"><a class="page-link" asp-action="Index" asp-controller="Apartment" asp-route-id="@Model.TotalPages">&raquo;</a></li>
                     </ul>
                 </div>
             </div>

@@ -10,11 +10,8 @@ using BootcampProject.DataAccess.EntityFramework.Repository.Concretes;
 using BootcampProject.Domain.Entities;
 using FluentValidation;
 using FluentValidation.AspNetCore;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -59,9 +56,12 @@ namespace BootcampProject.Web
 
             services.AddTransient<IValidator<LoginDto>, LoginValidator>();
             services.AddTransient<IValidator<CreateUserDto>, CreateUserValidator>();
-            services.AddTransient<IValidator<CreateApartmentDto>, CreateApartmentValidator>();
+            services.AddTransient<IValidator<UpdateUserDto>, UpdateUserValidator>();
 
-            
+            services.AddTransient<IValidator<CreateApartmentDto>, CreateApartmentValidator>();
+            services.AddTransient<IValidator<UpdateApartmentDto>, UpdateApartmentValidator>();
+
+
             services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IApartmentService, ApartmentService>();

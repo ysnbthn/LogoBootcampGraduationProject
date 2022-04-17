@@ -49,14 +49,14 @@ namespace BootcampProject.Web.Controllers
             return RedirectToAction("Index", TempData);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("User/Update/{id}")]
         public IActionResult Update(int id)
         {
             var userToUpdate = _userService.GetUserById(id);
             return View(userToUpdate);
         }
 
-        [HttpPost("{id}")]
+        [HttpPost("User/Update/{id}")]
         public IActionResult Update([FromForm] UpdateUserDto user, int id)
         {
             user.Id = id;

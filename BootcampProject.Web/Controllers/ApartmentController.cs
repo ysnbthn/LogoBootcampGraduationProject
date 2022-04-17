@@ -73,5 +73,43 @@ namespace BootcampProject.Web.Controllers
 
             return RedirectToAction("Index", TempData);
         }
+
+        [HttpGet("Apartment/Update/{apartmentId}")]
+        public IActionResult Update(int apartmentId)
+        {
+            var userToUpdate = _apartmentService.GetApartmentById(apartmentId);
+
+            ViewBag.Users = _apartmentService.GetResidents().Select(x => new SelectListItem { Text = x.Email, Value = x.OwnerOrHirerId.ToString() }).ToList();
+            ViewBag.Blocks = _apartmentService.GetBlocks();
+            ViewBag.FlatTypes = _apartmentService.GetFlatTypes();
+
+            return View(userToUpdate);
+        }
+
+        [HttpPost("Apartment/Update/{apartmentId}")]
+        public IActionResult Update([FromForm] UpdateApartmentDto apartment, int apartmentId)
+        {
+            apartment.Id = apartmentId;
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Users = _apartmentService.GetResidents().Select(x => new SelectListItem { Text = x.Email, Value = x.OwnerOrHirerId.ToString() }).ToList();
+                ViewBag.Blocks = _apartmentService.GetBlocks();
+                ViewBag.FlatTypes = _apartmentService.GetFlatTypes();
+
+                return View(apartment);
+            }
+
+            var result = _apartmentService.UpdateApartment(apartment);
+
+            if (result.Success)
+            {
+                TempData["Message"] = result.Data;
+                return RedirectToAction("Index", TempData);
+            }
+
+            TempData["Error"] = result.Error;
+
+            return RedirectToAction("Index", TempData);
+        }
     }
 }

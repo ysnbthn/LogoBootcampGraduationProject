@@ -66,12 +66,8 @@
                         <li class="page-item"><a class="page-link" asp-action="Index" asp-controller="User" asp-route-id="1">&laquo;</a></li>
                         @for (int page = Model.CurrentPage; page <= (Model.CurrentPage + 3 <= Model.TotalPages ? Model.CurrentPage + 3 : Model.TotalPages); page++)
                         {
-                            @*<li class="page-item"><a class="page-link" asp-action="Index" asp-controller="User" asp-route-id="@(page)">@(page)</a></li>*@
                             <li class="page-item">
                                 @Html.ActionLink(page.ToString(), "Index", "User", null, null, null, new { page = page }, new { @class = "page-link" })
-
-
-
                             </li>
                         }
                         <li class="page-item"><a class="page-link" asp-action="Index" asp-controller="User" asp-route-id="@Model.TotalPages">&raquo;</a></li>

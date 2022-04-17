@@ -3,11 +3,11 @@
     Layout = "_Layout";
     ViewData["Title"] = "Create New Apartment";
 }
-@model CreateApartmentDto
+@model UpdateApartmentDto
 
 <div class="row mt-5 mb-5">
     <div class="col-10 offset-1">
-        @using (Html.BeginForm("CreateApartment", "Apartment", FormMethod.Post))
+        @using (Html.BeginForm("Update", "Apartment", FormMethod.Post))
             {
                 @Html.AntiForgeryToken()
 
@@ -15,6 +15,7 @@
                     <p class="text-danger">@TempData["CreateError"]</p>
 
                     <div class="mb-3">
+                        @Html.LabelFor(x=>x.ApartmentNumber, "Door Number")
                         <div class="input-group">
                             @Html.TextBoxFor(x => x.ApartmentNumber, new {@class = "form-control", placeholder = "Door Number", type="number"})
                         </div>
@@ -22,6 +23,7 @@
                     </div>
 
                     <div class="mb-3">
+                        @Html.LabelFor(x=>x.Floor, "Floor Number")
                         <div class="input-group">
                             @Html.TextBoxFor(x => x.Floor, new {@class = "form-control", placeholder = "Floor", type="number"})
                         </div>
@@ -29,6 +31,7 @@
                     </div>
 
                     <div class="mb-3">
+                        @Html.LabelFor(x=>x.OwnerOrHirerId, "Owner or Hirer")
                         <div class="input-group">
                             @Html.DropDownListFor(x => x.OwnerOrHirerId, (List<SelectListItem>)ViewBag.Users, "Select User", new { @class = "form-control"})
                         </div>
@@ -36,6 +39,7 @@
                     </div>
 
                     <div class="mb-3">
+                        @Html.LabelFor(x=>x.BlockId, "Flat Type")
                         <div class="input-group">
                             @Html.DropDownListFor(x => x.FlatTypeId, new SelectList(ViewBag.FlatTypes, "Id", "Name"), "Select type of apartment", new { @class = "form-control"})
                         </div>
@@ -43,20 +47,22 @@
                     </div>
 
                     <div class="mb-3">
+                        @Html.LabelFor(x=>x.BlockId, "Block")
                         <div class="input-group">
                             @Html.DropDownListFor(x => x.BlockId, new SelectList(ViewBag.Blocks, "Id", "Name"), "Select block of apartment", new { @class = "form-control"})
                         </div>
                         @Html.ValidationMessageFor(x => x.BlockId, null, new {@class = "text-danger mb-1"})
                     </div>
 
-                    
-
                     <div class="mb-3">
                         <div class="icheck-primary">
-                            <label class="mr-2" for="remember">
+                            <label class="mr-2" for="Occupied">
                                     Is occupied? 
                                 </label>
-                            @Html.CheckBoxFor(x => x.Occupied)
+                            <select class="form-control" asp-for="Occupied">
+                                <option value="true">Yes</option>
+                                <option value="false">No</option>
+                            </select>
                         </div>
                     </div>
                     
