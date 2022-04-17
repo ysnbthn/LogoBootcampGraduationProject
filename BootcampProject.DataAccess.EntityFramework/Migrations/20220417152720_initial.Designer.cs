@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BootcampProject.DataAccess.EntityFramework.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220417140318_Initial")]
-    partial class Initial
+    [Migration("20220417152720_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -233,7 +233,7 @@ namespace BootcampProject.DataAccess.EntityFramework.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2022, 4, 17, 17, 3, 18, 78, DateTimeKind.Local).AddTicks(1262),
+                            CreatedAt = new DateTime(2022, 4, 17, 18, 27, 20, 381, DateTimeKind.Local).AddTicks(8828),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "A",
@@ -242,7 +242,7 @@ namespace BootcampProject.DataAccess.EntityFramework.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2022, 4, 17, 17, 3, 18, 79, DateTimeKind.Local).AddTicks(3670),
+                            CreatedAt = new DateTime(2022, 4, 17, 18, 27, 20, 383, DateTimeKind.Local).AddTicks(1651),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "B",
@@ -251,7 +251,7 @@ namespace BootcampProject.DataAccess.EntityFramework.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2022, 4, 17, 17, 3, 18, 79, DateTimeKind.Local).AddTicks(3687),
+                            CreatedAt = new DateTime(2022, 4, 17, 18, 27, 20, 383, DateTimeKind.Local).AddTicks(1671),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "A1",
@@ -291,7 +291,7 @@ namespace BootcampProject.DataAccess.EntityFramework.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2022, 4, 17, 17, 3, 18, 81, DateTimeKind.Local).AddTicks(886),
+                            CreatedAt = new DateTime(2022, 4, 17, 18, 27, 20, 384, DateTimeKind.Local).AddTicks(8677),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "1+1",
@@ -300,7 +300,7 @@ namespace BootcampProject.DataAccess.EntityFramework.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2022, 4, 17, 17, 3, 18, 81, DateTimeKind.Local).AddTicks(1191),
+                            CreatedAt = new DateTime(2022, 4, 17, 18, 27, 20, 384, DateTimeKind.Local).AddTicks(8978),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "2+1",
@@ -309,7 +309,7 @@ namespace BootcampProject.DataAccess.EntityFramework.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2022, 4, 17, 17, 3, 18, 81, DateTimeKind.Local).AddTicks(1196),
+                            CreatedAt = new DateTime(2022, 4, 17, 18, 27, 20, 384, DateTimeKind.Local).AddTicks(8984),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "3+1",
@@ -318,7 +318,7 @@ namespace BootcampProject.DataAccess.EntityFramework.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2022, 4, 17, 17, 3, 18, 81, DateTimeKind.Local).AddTicks(1197),
+                            CreatedAt = new DateTime(2022, 4, 17, 18, 27, 20, 384, DateTimeKind.Local).AddTicks(8985),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "4+2",

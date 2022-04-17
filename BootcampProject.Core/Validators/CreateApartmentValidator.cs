@@ -1,11 +1,5 @@
 ﻿using BootcampProject.Core.DTOs.ApartmentDtos;
 using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace BootcampProject.Core.Validators
 {
     public class CreateApartmentValidator : AbstractValidator<CreateApartmentDto>
@@ -31,10 +25,15 @@ namespace BootcampProject.Core.Validators
                 .GreaterThan(0)
                 .WithMessage("Apartment type is required");
             RuleFor(a => a.BlockId)
-                .GreaterThan(0)
                 .NotNull()
                 .NotEmpty()
+                .GreaterThan(0)
                 .WithMessage("Apartment block is required");
+            RuleFor(a => a.OwnerOrHirerId)
+                .NotNull()
+                .NotEmpty()
+                .GreaterThan(0)
+                .WithMessage("Owner is required");
         }
     }
 }
