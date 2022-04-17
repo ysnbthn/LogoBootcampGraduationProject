@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BootcampProject.Domain.Entities;
+using System;
 
 namespace BootcampProject.Core.DTOs.ApartmentDtos
 {

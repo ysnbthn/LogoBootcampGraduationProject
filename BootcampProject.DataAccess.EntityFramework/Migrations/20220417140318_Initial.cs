@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BootcampProject.DataAccess.EntityFramework.Migrations
 {
-    public partial class initial : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -127,17 +127,16 @@ namespace BootcampProject.DataAccess.EntityFramework.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Occupied = table.Column<bool>(type: "bit", nullable: false),
-                    Floor = table.Column<int>(type: "int", nullable: false),
-                    ApartmentNumber = table.Column<int>(type: "int", nullable: false),
-                    FlatTypeId = table.Column<int>(type: "int", nullable: false),
-                    BlockId = table.Column<int>(type: "int", nullable: false),
-                    OwnerOrHirerId = table.Column<int>(type: "int", nullable: true),
-                    ApplicationUserId = table.Column<int>(type: "int", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Floor = table.Column<int>(type: "int", nullable: false),
+                    ApartmentNumber = table.Column<int>(type: "int", nullable: false),
+                    Occupied = table.Column<bool>(type: "bit", nullable: false),
+                    FlatTypeId = table.Column<int>(type: "int", nullable: false),
+                    BlockId = table.Column<int>(type: "int", nullable: false),
+                    ApplicationUserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -162,7 +161,7 @@ namespace BootcampProject.DataAccess.EntityFramework.Migrations
                         principalSchema: "BootcampProject",
                         principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -265,9 +264,9 @@ namespace BootcampProject.DataAccess.EntityFramework.Migrations
                 columns: new[] { "Id", "CreatedAt", "DeletedAt", "IsDeleted", "Name", "UpdatedAt" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2022, 4, 17, 2, 15, 58, 553, DateTimeKind.Local).AddTicks(5209), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "A", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 2, new DateTime(2022, 4, 17, 2, 15, 58, 554, DateTimeKind.Local).AddTicks(7849), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "B", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 3, new DateTime(2022, 4, 17, 2, 15, 58, 554, DateTimeKind.Local).AddTicks(7867), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "A1", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) }
+                    { 1, new DateTime(2022, 4, 17, 17, 3, 18, 78, DateTimeKind.Local).AddTicks(1262), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "A", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 2, new DateTime(2022, 4, 17, 17, 3, 18, 79, DateTimeKind.Local).AddTicks(3670), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "B", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 3, new DateTime(2022, 4, 17, 17, 3, 18, 79, DateTimeKind.Local).AddTicks(3687), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "A1", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) }
                 });
 
             migrationBuilder.InsertData(
@@ -276,10 +275,10 @@ namespace BootcampProject.DataAccess.EntityFramework.Migrations
                 columns: new[] { "Id", "CreatedAt", "DeletedAt", "IsDeleted", "Name", "UpdatedAt" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2022, 4, 17, 2, 15, 58, 556, DateTimeKind.Local).AddTicks(4753), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "1+1", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 2, new DateTime(2022, 4, 17, 2, 15, 58, 556, DateTimeKind.Local).AddTicks(5062), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "2+1", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 3, new DateTime(2022, 4, 17, 2, 15, 58, 556, DateTimeKind.Local).AddTicks(5067), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "3+1", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 4, new DateTime(2022, 4, 17, 2, 15, 58, 556, DateTimeKind.Local).AddTicks(5068), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "4+2", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) }
+                    { 1, new DateTime(2022, 4, 17, 17, 3, 18, 81, DateTimeKind.Local).AddTicks(886), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "1+1", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 2, new DateTime(2022, 4, 17, 17, 3, 18, 81, DateTimeKind.Local).AddTicks(1191), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "2+1", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 3, new DateTime(2022, 4, 17, 17, 3, 18, 81, DateTimeKind.Local).AddTicks(1196), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "3+1", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 4, new DateTime(2022, 4, 17, 17, 3, 18, 81, DateTimeKind.Local).AddTicks(1197), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "4+2", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) }
                 });
 
             migrationBuilder.CreateIndex(

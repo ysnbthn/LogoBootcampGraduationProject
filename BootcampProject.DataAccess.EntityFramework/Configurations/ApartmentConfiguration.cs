@@ -10,9 +10,10 @@ namespace BootcampProject.DataAccess.EntityFramework.Configurations
         public void Configure(EntityTypeBuilder<Apartment> builder)
         {
             builder.ToTable("Apartments");
-            builder.HasKey("Id");
+            builder.HasKey(a => a.Id);
             builder.Property(a => a.Floor).IsRequired();
             builder.Property(a => a.ApartmentNumber).IsRequired();
+            builder.Property(a => a.ApplicationUserId).IsRequired();
             builder.Property(a => a.FlatTypeId).IsRequired();
             builder.Property(a => a.BlockId).IsRequired();
         }

@@ -49,7 +49,7 @@ namespace BootcampProject.Core.Concretes
         
         public ResponseDto DeleteUser(int id)
         {
-            var user = _repository.GetById(id);
+            var user = _repository.GetById(new ApplicationUser { Id = id }.Id);
 
             if(user == null) return new ResponseDto { Success = false, Error = "User is not exists!" };
 

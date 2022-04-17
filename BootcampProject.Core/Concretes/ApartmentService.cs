@@ -33,11 +33,11 @@ namespace BootcampProject.Core.Concretes
 
             Apartment apart = new Apartment
             {
-                Occupied = entity.OwnerOrHirerId.ToString() == null ? true : false,
+                Occupied = entity.OwnerOrHirerId == 0 ? true : false,
                 Floor = entity.Floor,
                 ApartmentNumber = entity.ApartmentNumber,
                 FlatTypeId = entity.FlatTypeId,
-                OwnerOrHirerId = entity.OwnerOrHirerId.ToString() == "" ? null : entity.OwnerOrHirerId,
+                ApplicationUserId = entity.OwnerOrHirerId,
                 BlockId = entity.BlockId,
                 IsDeleted = false
             };

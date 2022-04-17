@@ -27,8 +27,10 @@ namespace BootcampProject.Core.Validators
             RuleFor(a => a.FlatTypeId)
                 .NotNull()
                 .NotEmpty()
+                .GreaterThan(0)
                 .WithMessage("Apartment type is required");
             RuleFor(a => a.BlockId)
+                .GreaterThan(0)
                 .NotNull()
                 .NotEmpty()
                 .WithMessage("Apartment block is required");

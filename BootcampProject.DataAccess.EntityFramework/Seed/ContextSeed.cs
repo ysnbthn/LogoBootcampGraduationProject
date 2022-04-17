@@ -9,17 +9,16 @@ namespace BootcampProject.DataAccess.EntityFramework.Seed
 {
     public class ContextSeed
     {
-        public static async Task SeedRoleAsync(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
+        public static async Task SeedRoleAsync(UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager)
         {
-            await roleManager.CreateAsync(new IdentityRole(Roles.Admin.ToString()));
-            await roleManager.CreateAsync(new IdentityRole(Roles.Basic.ToString()));
+            await roleManager.CreateAsync(new ApplicationRole { Name = Roles.Admin.ToString() });
+            await roleManager.CreateAsync(new ApplicationRole { Name = Roles.Basic.ToString() });
         }
 
-        public static async Task SeedAdminAsync(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
+        public static async Task SeedAdminAsync(UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager)
         {
             var admin = new ApplicationUser
             {
-                Id = 0,
                 UserName = "admin@admin.com",
                 Email = "admin@admin.com",
                 Name = "Yasin Batuhan",
@@ -43,11 +42,10 @@ namespace BootcampProject.DataAccess.EntityFramework.Seed
             }
         }
 
-        public static async Task SeedBasicAsync(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
+        public static async Task SeedBasicAsync(UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager)
         {
             var basic = new ApplicationUser
             {
-                Id = 0,
                 UserName = "yasinbatuhanozyurek@gmail.com",
                 Email = "yasinbatuhanozyurek@gmail.com",
                 Name = "Yasin Batuhan",

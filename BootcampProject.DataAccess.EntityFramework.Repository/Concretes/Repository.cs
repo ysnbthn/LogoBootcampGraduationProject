@@ -21,7 +21,7 @@ namespace BootcampProject.DataAccess.EntityFramework.Repository.Concretes
 
         public void Delete(T entity)
         {
-            T exist = _unitOfWork.Context.Set<T>().Find(entity);
+            T exist = _unitOfWork.Context.Set<T>().Find(entity.Id);
             if (exist != null)
             {
                 exist.IsDeleted = true;
