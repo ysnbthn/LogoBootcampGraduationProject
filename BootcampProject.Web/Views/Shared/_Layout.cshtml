@@ -5,81 +5,81 @@ scratch. This page gets rid of all links and provides the needed markup only.
 -->
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>@ViewData["Title"]</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewData["Title"]</title>
 
-  <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
 </head>
 <body class="hold-transition layout-top-nav" style="overflow-x : hidden">
-<div class="wrapper">
+    <div class="wrapper">
 
-  <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
-    <div class="container">
-      <a asp-controller="Home" asp-action="Index" class="navbar-brand">
-          <i class="fa fa-building"></i>
-        <span class="brand-text font-weight-bold">HEMS</span>
-        <i class="fa fa-building"></i>
-      </a>
+        <!-- Navbar -->
+        <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
+            <div class="container">
+                <a asp-controller="Home" asp-action="Index" class="navbar-brand">
+                    <i class="fa fa-building"></i>
+                    <span class="brand-text font-weight-bold">HEMS</span>
+                    <i class="fa fa-building"></i>
+                </a>
 
-      <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+                <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-      <partial name="_NavLinks"></partial>
+                <partial name="_NavLinks"></partial>
 
-      <!-- Right navbar links -->
-      <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
-        <!-- Messages Dropdown Menu -->
-        <li class="nav-item">
-          <a class="nav-link" asp-controller="Message" asp-action="Index">
-              <span class="mr-1">Messages</span> <i class="fas fa-comments"></i>
-          </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" asp-action="Logout" asp-controller="Home">
-                <span class="mr-1">Log out</span> <i class="fa fa-power-off"></i>
-            </a>
-        </li>
-      </ul>
+                @if (User.IsInRole("Admin") || User.IsInRole("Basic"))
+                {
+                    <!-- Right navbar links -->
+                    <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
+                        <!-- Messages Dropdown Menu -->
+                    <li class="nav-item">
+                            <a class="nav-link" asp-controller="Message" asp-action="Index">
+                                <span class="mr-1">Messages</span> <i class="fas fa-comments"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-action="Logout" asp-controller="Home">
+                                <span class="mr-1">Log out</span> <i class="fa fa-power-off"></i>
+                            </a>
+                        </li>
+                    </ul>
+                }
+            </div>
+        </nav>
+        <!-- /.navbar -->
+        @RenderBody()
+
+        <!-- Main Footer -->
+        <footer class="main-footer ">
+            <!-- To the right -->
+            <div class="float-right d-none d-sm-inline">
+                All rights reserved.
+            </div>
+            <!-- Default to the left -->
+            <strong>Copyright &copy; 2022 HEMS</strong>
+        </footer>
     </div>
-  </nav>
-  <!-- /.navbar -->
+    <!-- ./wrapper -->
+    <!-- REQUIRED SCRIPTS -->
+    <!-- jQuery -->
+    <script src="../../plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- SweetAlert2 -->
+    <script src="../../plugins/sweetalert2/sweetalert2.min.js"></script>
+    <!-- Toastr -->
+    <script src="../../plugins/toastr/toastr.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="../../dist/js/adminlte.min.js"></script>
 
- @RenderBody()
-
-  <!-- Main Footer -->
-  <footer class="main-footer ">
-    <!-- To the right -->
-    <div class="float-right d-none d-sm-inline">
-      All rights reserved.
-    </div>
-    <!-- Default to the left -->
-    <strong>Copyright &copy; 2022 HEMS</strong> 
-  </footer>
-</div>
-<!-- ./wrapper -->
-
-<!-- REQUIRED SCRIPTS -->
-
-<!-- jQuery -->
-<script src="../../plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- SweetAlert2 -->
-<script src="../../plugins/sweetalert2/sweetalert2.min.js"></script>
-<!-- Toastr -->
-<script src="../../plugins/toastr/toastr.min.js"></script>
-<!-- AdminLTE App -->
-<script src="../../dist/js/adminlte.min.js"></script>
-
-@RenderSection("scripts", required: false)
+    @RenderSection("scripts", required: false)
 
 </body>
 </html>

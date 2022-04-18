@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootcampProject.PaymentApi"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootcampProject.DataAccess.MongoDB.Repository", "BootcampProject.DataAccess.MongoDB.Repository\BootcampProject.DataAccess.MongoDB.Repository.csproj", "{5A795E91-7675-404D-9D05-72DAF078A0D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BootcampProject.Web", "BootcampProject.Web\BootcampProject.Web.csproj", "{D05D6905-5DE2-498E-862A-9815D2691453}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootcampProject.Web", "BootcampProject.Web\BootcampProject.Web.csproj", "{D05D6905-5DE2-498E-862A-9815D2691453}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

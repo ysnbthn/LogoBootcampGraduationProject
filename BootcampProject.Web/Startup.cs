@@ -8,6 +8,7 @@ using BootcampProject.DataAccess.EntityFramework;
 using BootcampProject.DataAccess.EntityFramework.Repository.Abstracts;
 using BootcampProject.DataAccess.EntityFramework.Repository.Concretes;
 using BootcampProject.Domain.Entities;
+using BootcampProject.Web.Middlewares;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
@@ -16,6 +17,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Net;
 
 namespace BootcampProject.Web
 {
@@ -35,11 +37,6 @@ namespace BootcampProject.Web
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
-
-            //services.AddIdentity<ApplicationUser, IdentityRole>()
-            //    .AddEntityFrameworkStores<ApplicationDbContext>()
-            //    .AddDefaultUI()
-            //    .AddDefaultTokenProviders();
 
             services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
             {
@@ -92,6 +89,20 @@ namespace BootcampProject.Web
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseCustomExceptionMiddleware();
+
+            app.UseStatusCodePages(async context =>
+            {
+                var response = context.HttpContext.Response;
+
+                if (response.StatusCode == (int)HttpStatusCode.Unauthorized ||
+                    response.StatusCode == (int)HttpStatusCode.Forbidden ||
+                    response.StatusCode == (int)HttpStatusCode.NotFound)
+                {
+                    response.Redirect("/404");
+                }    
+            });
 
             app.UseEndpoints(endpoints =>
             {
