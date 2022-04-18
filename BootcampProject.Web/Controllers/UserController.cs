@@ -15,9 +15,9 @@ namespace BootcampProject.Web.Controllers
             _userService = userService;
         }
 
-        public IActionResult Index(int page = 1)
+        public IActionResult Index(int page)
         {
-            
+            if(page == 0) page = 1;
             return View(_userService.GetPagedUsers(page));
         }
 

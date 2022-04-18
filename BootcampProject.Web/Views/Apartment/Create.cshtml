@@ -7,12 +7,12 @@
 
 <div class="row mt-5 mb-5">
     <div class="col-10 offset-1">
-        @using (Html.BeginForm("CreateApartment", "Apartment", FormMethod.Post))
+        @using (Html.BeginForm("Create", "Apartment", FormMethod.Post))
             {
                 @Html.AntiForgeryToken()
 
                 <div class="card-body">
-                    <p class="text-danger">@TempData["CreateError"]</p>
+                    <p class="text-danger">@TempData["Error"]</p>
 
                     <div class="mb-3">
                         <div class="input-group">

@@ -5,8 +5,6 @@
     ViewData["Title"] = "Apartments";
 }
 
-<div id="success"></div>
-
 <div class="row mt-5 mb-5">
     <div class="col-10 offset-1">
         <div class="card">
@@ -39,34 +37,44 @@
                     <tbody>
                         @foreach (var apartment in Model.Apartments)
                         {
-                            <tr>
-                                <td>@apartment.ApartmentNumber</td>
-                                <td>@apartment.Floor</td>
-                                <td>@apartment.BlockName</td>
-                                <td>@apartment.FlatTypeName</td>
-                                <td>@(apartment.Occupied ? "Yes" : "No")</td>
-                                <td>@apartment.OwnerEmail</td>
-                                <td>@apartment.CreatedAt.ToShortDateString()</td>
-                                <td>
-                                    <a class="btn btn-sm btn-warning" asp-action="Update" asp-controller="Apartment" asp-route-id="@apartment.Id">
-                                        <i class="fa-regular fa-pen-to-square"></i>
-                                    </a>
-                                    <a class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modal-delete" onclick="getId('@apartment.Id')">
-                                        <i class="fa fa-trash"></i>
-                                    </a>
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td>@apartment.ApartmentNumber</td>
+                                    <td>@apartment.Floor</td>
+                                    <td>@apartment.BlockName</td>
+                                    <td>@apartment.FlatTypeName</td>
+                                    <td>@(apartment.Occupied ? "Yes" : "No")</td>
+                                    <td>@apartment.OwnerEmail</td>
+                                    <td>@apartment.CreatedAt.ToShortDateString()</td>
+                                    <td>
+                                        <a class="btn btn-sm btn-warning" asp-action="Update" asp-controller="Apartment" asp-route-id="@apartment.Id">
+                                            <i class="fa-regular fa-pen-to-square"></i>
+                                        </a>
+                                        <a class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modal-delete" onclick="getId('@apartment.Id')">
+                                            <i class="fa fa-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr>
                         }
                     </tbody>
                 </table>
                 <div class="card-footer clearfix">
                     <ul class="pagination pagination-sm m-0 float-right">
                         <li class="page-item"><a class="page-link" asp-action="Index" asp-controller="Apartment" asp-route-id="1">&laquo;</a></li>
-                        @for (int page = Model.CurrentPage; page <= (Model.CurrentPage + 3 <= Model.TotalPages ? Model.CurrentPage + 3 : Model.TotalPages); page++)
+                        @for (int page = Model.CurrentPage - 2 > 0 ? Model.CurrentPage-2 : 1; page <= (Model.CurrentPage + 2 <= Model.TotalPages ? Model.CurrentPage + 2 : Model.TotalPages); page++)
                         {
-                            <li class="page-item">
-                                @Html.ActionLink(page.ToString(), "Index", "Apartment", null, null, null, new { page = page }, new { @class = "page-link" })
-                            </li>
+                            if (page == Model.CurrentPage)
+                            {
+                                        <li class="page-item active">
+                                    @Html.ActionLink(page.ToString(), "Index", "Apartment", null, null, null, new { page = page }, new { @class = "page-link" })
+                                    </li>
+                            }
+                            else
+                            {
+                                        <li class="page-item">
+                                    @Html.ActionLink(page.ToString(), "Index", "Apartment", null, null, null, new { page = page }, new { @class = "page-link" })
+                                    </li>
+                            }
+
                         }
                         <li class="page-item"><a class="page-link" asp-action="Index" asp-controller="Apartment" asp-route-id="@Model.TotalPages">&raquo;</a></li>
                     </ul>
@@ -92,7 +100,10 @@
             </div>
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-sm btn-danger" id="modalDeleteButton" href="">Delete</a>
+                <form asp-action="Delete" asp-controller="Apartment" method="post">
+                    <input type="hidden" name="ApartmentId" value="" id="apartId"/>
+                    <input type="submit" class="btn btn-sm btn-danger" id="modalDeleteButton" value="Delete">
+                </form>
             </div>
         </div>
         <!-- /.modal-content -->
@@ -104,13 +115,6 @@
 
 <script type="text/javascript">
 
-        function getId(clicked_id) {
-            this.clickId = clicked_id;
-            console.log(clickId);
-
-            $('#modalDeleteButton').attr("href", "/Apartment/Delete/"+clicked_id)
-         }
-
          $(document).ready(function() {
             var success = @((TempData["Message"] != null).ToString().ToLower());
 
@@ -120,10 +124,29 @@
             title: 'Success',
             subtitle: '',
             body: '@TempData["Message"]'
-          })
-            }
+          });
+
+          //$(document).ready(function() {
+          //  var fail = @((TempData["Error"] != null).ToString().ToLower());
+
+          //  if (fail == true) {
+          //      $(document).Toasts('create', {
+          //  class: 'bg-danger',
+          //  title: 'Error',
+          //  subtitle: '',
+          //  body: '@TempData["Error"]'
+          //});
+
         });
 
 </script>
 }
 
+<script type="text/javascript">
+    function getId(clicked_id) {
+            this.clickId = clicked_id;
+            console.log(clickId);
+
+            $('#apartId').attr("value", clicked_id)
+         }
+</script>

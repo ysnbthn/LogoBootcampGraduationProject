@@ -5,11 +5,9 @@
     ViewData["Title"] = "Users";
 }
 
-
-<div id="success"></div>
-
-
-<div class="row mt-5 mb-5">
+<div class="container-xxl">
+</div>
+<div class="row mt-5 mb-5 ">
     <div class="col-10 offset-1">
         <div class="card">
             <div class="card-header">
@@ -64,11 +62,21 @@
                 <div class="card-footer clearfix">
                     <ul class="pagination pagination-sm m-0 float-right">
                         <li class="page-item"><a class="page-link" asp-action="Index" asp-controller="User" asp-route-id="1">&laquo;</a></li>
-                        @for (int page = Model.CurrentPage; page <= (Model.CurrentPage + 3 <= Model.TotalPages ? Model.CurrentPage + 3 : Model.TotalPages); page++)
+                        @for (int page = Model.CurrentPage - 2 > 0 ? Model.CurrentPage - 2 : 1; page <= (Model.CurrentPage + 2 < Model.TotalPages ? Model.CurrentPage + 2 : Model.TotalPages); page++)
                         {
-                            <li class="page-item">
-                                @Html.ActionLink(page.ToString(), "Index", "User", null, null, null, new { page = page }, new { @class = "page-link" })
-                            </li>
+                            if (page == Model.CurrentPage)
+                            {
+                                <li class="page-item active">
+                                    @Html.ActionLink(page.ToString(), "Index", "User", null, null, null, new { page = page }, new { @class = "page-link" })
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="page-item">
+                                    @Html.ActionLink(page.ToString(), "Index", "User", null, null, null, new { page = page }, new { @class = "page-link" })
+                                </li>
+                            }
+
                         }
                         <li class="page-item"><a class="page-link" asp-action="Index" asp-controller="User" asp-route-id="@Model.TotalPages">&raquo;</a></li>
                     </ul>
@@ -95,7 +103,6 @@
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                 <a class="btn btn-sm btn-danger" id="modalDeleteButton" href="">Delete</a>
-                @*href="@Url.Action("Delete", "User",new{ id=@type.Id})*@
             </div>
         </div>
         <!-- /.modal-content -->
@@ -107,26 +114,39 @@
 
 <script type="text/javascript">
 
-        function getId(clicked_id) {
+     $(document).ready(function() {
+        var success = @((TempData["Message"] != null).ToString().ToLower());
+
+        if (success == true) {
+            $(document).Toasts('create', {
+        class: 'bg-success',
+        title: 'Success',
+        subtitle: '',
+        body: '@TempData["Message"]'
+      })
+        }
+    });
+
+    $(document).ready(function() {
+        var fail = @((TempData["Error"] != null).ToString().ToLower());
+
+        if (fail == true) {
+            $(document).Toasts('create', {
+        class: 'bg-danger',
+        title: 'Error',
+        subtitle: '',
+        body: '@TempData["Error"]'
+      });
+
+</script>
+}
+
+<script type="text/javascript">
+    function getId(clicked_id) {
             this.clickId = clicked_id;
             console.log(clickId);
 
             $('#modalDeleteButton').attr("href", "/User/Delete/"+clicked_id)
          }
-
-         $(document).ready(function() {
-            var success = @((TempData["Message"] != null).ToString().ToLower());
-
-            if (success == true) {
-                $(document).Toasts('create', {
-            class: 'bg-success',
-            title: 'Success',
-            subtitle: '',
-            body: '@TempData["Message"]'
-          })
-            }
-        });
-
 </script>
-}
 

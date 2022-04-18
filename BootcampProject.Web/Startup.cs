@@ -109,7 +109,6 @@ namespace BootcampProject.Web
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Login}/{id?}");
-                endpoints.MapRazorPages();
             });
         }
     }

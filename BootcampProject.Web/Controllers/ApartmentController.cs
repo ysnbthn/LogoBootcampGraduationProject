@@ -18,18 +18,16 @@ namespace BootcampProject.Web.Controllers
             _apartmentService = apartmentService;
         }
 
-        [HttpGet]
-        public IActionResult Index(int page = 1)
+        public IActionResult Index(int page)
         {
+            if (page == 0) page = 1;
             return View(_apartmentService.GetPagedApartments(page));
         }
 
         [HttpGet]
         public IActionResult Create()
         {
-            ViewBag.Users = _apartmentService.GetResidents().Select(x => new SelectListItem { Text = x.Email, Value = x.OwnerOrHirerId.ToString() }).ToList();
-            ViewBag.Blocks = _apartmentService.GetBlocks();
-            ViewBag.FlatTypes = _apartmentService.GetFlatTypes();
+            CreateViewBags();
 
             return View();
         }
@@ -39,10 +37,8 @@ namespace BootcampProject.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-                ViewBag.Users = _apartmentService.GetResidents().Select(x => new SelectListItem { Text = x.Email, Value = x.OwnerOrHirerId.ToString() }).ToList();
-                ViewBag.Blocks = _apartmentService.GetBlocks();
-                ViewBag.FlatTypes = _apartmentService.GetFlatTypes();
-                
+                CreateViewBags();
+
                 return View(apartment);
             }
 
@@ -55,23 +51,27 @@ namespace BootcampProject.Web.Controllers
                 return RedirectToAction("Index", TempData);
             }
             
-            TempData["Message"] = result.Error;
-            return RedirectToAction("Index", TempData);
+            TempData["Error"] = result.Error;
+
+            CreateViewBags();
+
+            return View(apartment);
         }
 
-        public IActionResult Delete(int id)
+        [HttpPost]
+        public IActionResult Delete([FromForm]int ApartmentId)
         {
-            var result = _apartmentService.DeleteApartment(id);
+            var result = _apartmentService.DeleteApartment(ApartmentId);
 
             if (result.Success)
             {
                 TempData["Message"] = result.Data;
-                return RedirectToAction("Index", TempData);
+                return RedirectToAction("Index", "Apartment", TempData);
             }
 
-            TempData["Message"] = result.Error;
+            TempData["Error"] = result.Error;
 
-            return RedirectToAction("Index", TempData);
+            return RedirectToAction("Index", "Apartment", TempData);
         }
 
         [HttpGet("Apartment/Update/{apartmentId}")]
@@ -79,9 +79,7 @@ namespace BootcampProject.Web.Controllers
         {
             var userToUpdate = _apartmentService.GetApartmentById(apartmentId);
 
-            ViewBag.Users = _apartmentService.GetResidents().Select(x => new SelectListItem { Text = x.Email, Value = x.OwnerOrHirerId.ToString() }).ToList();
-            ViewBag.Blocks = _apartmentService.GetBlocks();
-            ViewBag.FlatTypes = _apartmentService.GetFlatTypes();
+            CreateViewBags();
 
             return View(userToUpdate);
         }
@@ -92,9 +90,7 @@ namespace BootcampProject.Web.Controllers
             apartment.Id = apartmentId;
             if (!ModelState.IsValid)
             {
-                ViewBag.Users = _apartmentService.GetResidents().Select(x => new SelectListItem { Text = x.Email, Value = x.OwnerOrHirerId.ToString() }).ToList();
-                ViewBag.Blocks = _apartmentService.GetBlocks();
-                ViewBag.FlatTypes = _apartmentService.GetFlatTypes();
+                CreateViewBags();
 
                 return View(apartment);
             }
@@ -108,8 +104,16 @@ namespace BootcampProject.Web.Controllers
             }
 
             TempData["Error"] = result.Error;
+            CreateViewBags();
 
-            return RedirectToAction("Index", TempData);
+            return View("Index", TempData);
+        }
+
+        private void CreateViewBags()
+        {
+            ViewBag.Users = _apartmentService.GetResidents().Select(x => new SelectListItem { Text = x.Email, Value = x.OwnerOrHirerId.ToString() }).ToList();
+            ViewBag.Blocks = _apartmentService.GetBlocks();
+            ViewBag.FlatTypes = _apartmentService.GetFlatTypes();
         }
     }
 }
