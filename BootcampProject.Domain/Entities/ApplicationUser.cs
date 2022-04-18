@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
+using System.Collections.Generic;
 
 namespace BootcampProject.Domain.Entities
 {
@@ -14,6 +15,8 @@ namespace BootcampProject.Domain.Entities
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
         public DateTime DeletedAt { get; set; }
+
+        public IList<ApplicationUserInvoices> UserInvoices { get; set; }
     }
 }
  
