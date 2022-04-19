@@ -1,9 +1,8 @@
 ﻿using AutoMapper;
 using BootcampProject.Core.DTOs;
 using BootcampProject.Core.DTOs.ApartmentDtos;
-using BootcampProject.DataAccess.EntityFramework;
+using BootcampProject.Core.DTOs.InvoiceDtos;
 using BootcampProject.Domain.Entities;
-using System;
 
 namespace BootcampProject.Core.MappingProfiles
 {
@@ -32,6 +31,12 @@ namespace BootcampProject.Core.MappingProfiles
                 .ForMember(x => x.OwnerOrHirerId, o => o.MapFrom(s => s.Id));
             CreateMap<ResidentsDto, ApplicationUser>()
                 .ForMember(x => x.Id, o => o.MapFrom(s => s.OwnerOrHirerId));
+
+            CreateMap<Invoice, GetInvoiceDto>()
+                .ForMember(i => i.InvoiceTypeName, o => o.MapFrom(s => s.InvoiceType.Name));
+
+            CreateMap<InvoiceType, InvoiceTypeDto>().ReverseMap();
+            CreateMap<Invoice, CreateInvoiceDto>().ReverseMap();
 
         }
     }

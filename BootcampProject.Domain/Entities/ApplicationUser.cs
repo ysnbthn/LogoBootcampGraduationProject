@@ -6,7 +6,6 @@ namespace BootcampProject.Domain.Entities
 {
     public class ApplicationUser : IdentityUser<int>, BaseEntity
     {
-        //public int Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public string TCNo { get; set; }
@@ -16,7 +15,7 @@ namespace BootcampProject.Domain.Entities
         public DateTime UpdatedAt { get; set; }
         public DateTime DeletedAt { get; set; }
 
-        public IList<ApplicationUserInvoices> UserInvoices { get; set; }
+        public IList<ApplicationUserInvoice> ApplicationUserInvoices { get; set; }
     }
 }
  

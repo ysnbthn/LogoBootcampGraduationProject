@@ -15,6 +15,9 @@ namespace BootcampProject.DataAccess.EntityFramework
         public DbSet<Apartment> Apartments { get; set; }
         public DbSet<Block> Blocks { get; set; }
         public DbSet<FlatType> FlatTypes { get; set; }
+        public DbSet<Invoice> Invoices { get; set; }
+        public DbSet<InvoiceType> InvoiceTypes { get; set; }
+        public DbSet<ApplicationUserInvoice> ApplicationUserInvoices { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

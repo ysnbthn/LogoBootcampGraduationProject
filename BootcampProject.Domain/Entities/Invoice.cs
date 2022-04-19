@@ -22,7 +22,7 @@ namespace BootcampProject.Domain.Entities
         public bool Paid { get; set; }
         public DateTime BillingDate { get; set; }
 
-        public IList<ApplicationUserInvoices> UserInvoices { get; set; }
+        public IList<ApplicationUserInvoice> ApplicationUserInvoices { get; set; }
 
     }
 }

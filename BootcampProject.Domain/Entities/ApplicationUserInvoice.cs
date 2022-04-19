@@ -1,6 +1,6 @@
 ﻿namespace BootcampProject.Domain.Entities
 {
-    public class ApplicationUserInvoices
+    public class ApplicationUserInvoice
     {
         public int UserId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }

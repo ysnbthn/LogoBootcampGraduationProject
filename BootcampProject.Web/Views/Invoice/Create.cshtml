@@ -1,0 +1,42 @@
+﻿@using BootcampProject.Core.DTOs.InvoiceDtos
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Create New Invoice";
+}
+@model CreateInvoiceDto
+
+<div class="row mt-5 mb-5">
+    <div class="col-10 offset-1">
+        @using (Html.BeginForm("Create", "Invoice", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="card-body">
+                    <p class="text-danger">@TempData["Error"]</p>
+
+                    <div class="mb-3">
+                        <div class="input-group">
+                            @Html.DropDownListFor(x => x.InvoiceTypeId, (List<SelectListItem>)ViewBag.InvoiceTypes, "Select invoice type", new { @class = "form-control"})
+                        </div>
+                        @Html.ValidationMessageFor(x => x.InvoiceTypeId, null, new {@class = "text-danger mb-1"})
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="input-group">
+                            @Html.TextBoxFor(x => x.Amount, new {@class = "form-control", placeholder = "Amount", type="number", min="1", step="0.01"})
+                        </div>
+                        @Html.ValidationMessageFor(x => x.Amount, null, new {@class = "text-danger mb-1"})
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="input-group">
+                            @Html.TextBoxFor(x => x.PaymentDue, new {@class = "form-control", placeholder = "Payment due", type="date"})
+                        </div>
+                        @Html.ValidationMessageFor(x => x.PaymentDue, null, new {@class = "text-danger mb-1"})
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            }
+    </div>
+</div>

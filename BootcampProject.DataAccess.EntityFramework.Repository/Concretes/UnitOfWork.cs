@@ -25,7 +25,7 @@ namespace BootcampProject.DataAccess.EntityFramework.Repository.Concretes
                     Context.SaveChanges();
                     transaction.Commit();
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     transaction.Rollback();
                 }

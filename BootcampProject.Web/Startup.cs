@@ -2,6 +2,7 @@ using BootcampProject.Core.Abstract;
 using BootcampProject.Core.Concretes;
 using BootcampProject.Core.DTOs;
 using BootcampProject.Core.DTOs.ApartmentDtos;
+using BootcampProject.Core.DTOs.InvoiceDtos;
 using BootcampProject.Core.MappingProfiles;
 using BootcampProject.Core.Validators;
 using BootcampProject.DataAccess.EntityFramework;
@@ -54,14 +55,15 @@ namespace BootcampProject.Web
             services.AddTransient<IValidator<LoginDto>, LoginValidator>();
             services.AddTransient<IValidator<CreateUserDto>, CreateUserValidator>();
             services.AddTransient<IValidator<UpdateUserDto>, UpdateUserValidator>();
-
             services.AddTransient<IValidator<CreateApartmentDto>, CreateApartmentValidator>();
             services.AddTransient<IValidator<UpdateApartmentDto>, UpdateApartmentValidator>();
-
+            
+            services.AddTransient<IValidator<CreateInvoiceDto>, CreateInvoiceValidator>();
 
             services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IApartmentService, ApartmentService>();
+            services.AddTransient<IInvoiceService, InvoiceService>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddAutoMapper(typeof(MappingProfiles).Assembly);
 
