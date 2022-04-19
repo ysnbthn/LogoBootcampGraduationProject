@@ -59,6 +59,7 @@ namespace BootcampProject.Web
             services.AddTransient<IValidator<UpdateApartmentDto>, UpdateApartmentValidator>();
             
             services.AddTransient<IValidator<CreateInvoiceDto>, CreateInvoiceValidator>();
+            services.AddTransient<IValidator<UpdateInvoiceDto>, UpdateInvoiceValidator>();
 
             services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
             services.AddTransient<IUserService, UserService>();

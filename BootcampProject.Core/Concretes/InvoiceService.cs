@@ -26,9 +26,11 @@ namespace BootcampProject.Core.Concretes
 
         public ResponseDto AddInvoice(CreateInvoiceDto entity)
         {
-            var invoiceExists = _repository.Get().Any(x => x.InvoiceTypeId == entity.InvoiceTypeId && 
+            var invoiceExists = _repository.Get().Any(x => x.InvoiceTypeId == entity.InvoiceTypeId &&
                                                            x.PaymentDue.Month == entity.PaymentDue.Month &&
-                                                           x.PaymentDue.Year == entity.PaymentDue.Year);
+                                                           x.PaymentDue.Year == entity.PaymentDue.Year &&
+                                                           x.Amount == decimal.Parse(entity.Amount.Replace(".", ",")) &&
+                                                           x.IsDeleted == false);
 
             if (invoiceExists) return new ResponseDto() { Error = "Invoice already exists", Success = false };
 
@@ -36,6 +38,25 @@ namespace BootcampProject.Core.Concretes
             _unitOfWork.Commit();
 
             return new ResponseDto() { Data = "Invoice added", Success = true };
+        }
+
+        public ResponseDto DeleteInvoice(int entityId)
+        {
+            var invoice = _repository.GetById(entityId);
+            
+            if (invoice == null) return new ResponseDto { Success = false, Error = "Invoice is not exists!" };
+
+            _repository.Delete(invoice);
+            _unitOfWork.Commit();
+
+            return new ResponseDto { Success = true, Data = "Invoice deleted successfully" };
+        }
+
+        public UpdateInvoiceDto GetInvoiceById(int id)
+        {
+            var ınvoice = _repository.GetById(id);
+
+            return _mapper.Map<UpdateInvoiceDto>(ınvoice);
         }
 
         public List<InvoiceTypeDto> GetInvoices()
@@ -68,6 +89,28 @@ namespace BootcampProject.Core.Concretes
                 .ToList();
 
             return new PaginatedInvoicesDto { Invoices = _mapper.Map<List<GetInvoiceDto>>(Invoices), TotalPages = max, CurrentPage = page };
+        }
+
+        public ResponseDto UpdateInvoice(UpdateInvoiceDto entity)
+        {
+            var invoice = _repository.GetById(entity.Id);
+
+            if (invoice == null) return new ResponseDto { Success = false, Error = "Apartment is not exists!" };
+
+            var invoiceIsExists = _repository.Get().Any(x => x.InvoiceTypeId == entity.InvoiceTypeId &&
+                                                             x.PaymentDue.Month == entity.PaymentDue.Month &&
+                                                             x.PaymentDue.Year == entity.PaymentDue.Year &&
+                                                             x.Amount == decimal.Parse(entity.Amount.Replace(".", ",")) &&
+                                                             x.IsDeleted == false);
+
+            if (invoiceIsExists) return new ResponseDto { Success = false, Error = "There is already a invoice in database with same attributes" };
+
+            var mappedInvoice = _mapper.Map(entity, invoice); 
+
+            _repository.Update(mappedInvoice);
+            _unitOfWork.Commit();
+
+            return new ResponseDto { Success = true, Data = "User updated successfully" };
         }
     }
 }

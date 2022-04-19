@@ -38,7 +38,7 @@ namespace BootcampProject.Core.Concretes
 
         public ResponseDto DeleteApartment(int entityId)
         {
-            var apartment = _repository.GetById(new ApplicationUser { Id = entityId }.Id);
+            var apartment = _repository.GetById(entityId);
 
             if (apartment == null) return new ResponseDto { Success = false, Error = "Apartment is not exists!" };
 
@@ -96,7 +96,7 @@ namespace BootcampProject.Core.Concretes
 
             if (apartment == null) return new ResponseDto { Success = false, Error = "Apartment is not exists!" };
 
-            var apartmentIsExists = _unitOfWork.Context.Apartments.Any( x=>x.ApartmentNumber == entity.ApartmentNumber && x.BlockId == entity.BlockId && x.Id != entity.Id);
+            var apartmentIsExists = _repository.Get().Any(x => x.ApartmentNumber == entity.ApartmentNumber && x.BlockId == entity.BlockId && x.Id != entity.Id);
 
             if (apartmentIsExists) return new ResponseDto { Success = false, Error = "There is already a Apartment in database with same Apartment number in same block" };
 

@@ -32,7 +32,6 @@ namespace BootcampProject.Web.Controllers
         [HttpPost]
         public IActionResult Create(CreateInvoiceDto invoice)
         {
-            decimal getValue = invoice.Amount;
             if (!ModelState.IsValid)
             {
                 ViewBag.InvoiceTypes = _invoiceService.GetInvoices().Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() }).ToList();
@@ -52,6 +51,59 @@ namespace BootcampProject.Web.Controllers
             TempData["Error"] = result.Error;
 
             return View(invoice);
+        }
+
+        [HttpPost]
+        public IActionResult Delete([FromForm] int invoiceId)
+        {
+            var result = _invoiceService.DeleteInvoice(invoiceId);
+
+            if (result.Success)
+            {
+                TempData["Message"] = result.Data;
+                return RedirectToAction("Index", "Invoice", TempData);
+            }
+
+            TempData["Error"] = result.Error;
+
+            return RedirectToAction("Index", "Invoice", TempData);
+        }
+
+        
+
+        [HttpGet("Invoice/Update/{invoiceId}")]
+        public IActionResult Update(int invoiceId)
+        {
+            var invoiceToUpdate = _invoiceService.GetInvoiceById(invoiceId);
+
+            ViewBag.InvoiceTypes = _invoiceService.GetInvoices().Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() }).ToList();
+
+            return View(invoiceToUpdate);
+        }
+
+        [HttpPost("Invoice/Update/{invoiceId}")]
+        public IActionResult Update([FromForm] UpdateInvoiceDto invoice, int invoiceId)
+        {
+            invoice.Id = invoiceId;
+            if (!ModelState.IsValid)
+            {
+                ViewBag.InvoiceTypes = _invoiceService.GetInvoices().Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() }).ToList();
+
+                return View(invoice);
+            }
+
+            var result = _invoiceService.UpdateInvoice(invoice);
+
+            if (result.Success)
+            {
+                TempData["Message"] = result.Data;
+                return RedirectToAction("Index", TempData);
+            }
+
+            TempData["Error"] = result.Error;
+            ViewBag.InvoiceTypes = _invoiceService.GetInvoices().Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() }).ToList();
+
+            return View("Index", TempData);
         }
     }
 }

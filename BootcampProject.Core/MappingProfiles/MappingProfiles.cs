@@ -3,6 +3,7 @@ using BootcampProject.Core.DTOs;
 using BootcampProject.Core.DTOs.ApartmentDtos;
 using BootcampProject.Core.DTOs.InvoiceDtos;
 using BootcampProject.Domain.Entities;
+using System;
 
 namespace BootcampProject.Core.MappingProfiles
 {
@@ -36,8 +37,12 @@ namespace BootcampProject.Core.MappingProfiles
                 .ForMember(i => i.InvoiceTypeName, o => o.MapFrom(s => s.InvoiceType.Name));
 
             CreateMap<InvoiceType, InvoiceTypeDto>().ReverseMap();
-            CreateMap<Invoice, CreateInvoiceDto>().ReverseMap();
-
+            CreateMap<CreateInvoiceDto, Invoice>()
+                .ForMember(i => i.Amount, o => o.MapFrom(s => decimal.Parse(s.Amount)))
+                .ReverseMap();
+            CreateMap<UpdateInvoiceDto, Invoice>()
+                .ForMember(i => i.Amount, o => o.MapFrom(s => decimal.Parse(s.Amount)))
+                .ReverseMap();
         }
     }
 }

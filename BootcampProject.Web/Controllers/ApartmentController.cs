@@ -77,11 +77,11 @@ namespace BootcampProject.Web.Controllers
         [HttpGet("Apartment/Update/{apartmentId}")]
         public IActionResult Update(int apartmentId)
         {
-            var userToUpdate = _apartmentService.GetApartmentById(apartmentId);
+            var apartmentToUpdate = _apartmentService.GetApartmentById(apartmentId);
 
             CreateViewBags();
 
-            return View(userToUpdate);
+            return View(apartmentToUpdate);
         }
 
         [HttpPost("Apartment/Update/{apartmentId}")]

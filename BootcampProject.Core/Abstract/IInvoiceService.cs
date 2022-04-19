@@ -12,12 +12,10 @@ namespace BootcampProject.Core.Abstract
     {
         PaginatedInvoicesDto GetPaginatedInvoices(int page, bool? isPaid);
         ResponseDto AddInvoice(CreateInvoiceDto entity);
-        //ResponseDto DeleteApartment(int entityId);
-        //ResponseDto UpdateApartment(UpdateApartmentDto entity);
-        //UpdateApartmentDto GetApartmentById(int id);
+        ResponseDto DeleteInvoice(int entityId);
+        ResponseDto UpdateInvoice(UpdateInvoiceDto entity);
+        UpdateInvoiceDto GetInvoiceById(int id);
 
         List<InvoiceTypeDto> GetInvoices();
-        //List<FlatTypeDto> GetFlatTypes();
-        //List<ResidentsDto> GetResidents();
     }
 }

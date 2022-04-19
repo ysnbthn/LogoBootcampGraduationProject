@@ -20,8 +20,10 @@ namespace BootcampProject.Core.Validators
                 .GreaterThan(i=> DateTime.Now)
                 .WithMessage("Invoice Due date must be greater than today");
             RuleFor(i => i.Amount)
-                .GreaterThan(0)
-                .WithMessage("Payment Amount must be greater than 0");
+                .NotNull()
+                .NotEmpty()
+                .Matches("^[0-9]+(\\,[0-9]{1,2})$")
+                .WithMessage("Please enter a Decimal number with maximum 2 decimal places.");
         }
     }
 }
