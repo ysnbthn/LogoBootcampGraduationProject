@@ -14,8 +14,6 @@ namespace BootcampProject.DataAccess.EntityFramework.Configurations
             builder.Property(i => i.InvoiceTypeId).IsRequired();
             builder.Property(i => i.Amount).IsRequired().HasColumnType("decimal(18,2)");
             builder.Property(i => i.PaymentDue).IsRequired();
-            builder.Property(i => i.Paid).IsRequired();
-            builder.Property(i => i.BillingDate).IsRequired();
         }
     }
 }

@@ -18,6 +18,7 @@ namespace BootcampProject.DataAccess.EntityFramework
         public DbSet<Invoice> Invoices { get; set; }
         public DbSet<InvoiceType> InvoiceTypes { get; set; }
         public DbSet<ApplicationUserInvoice> ApplicationUserInvoices { get; set; }
+        public DbSet<Payment> Payments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

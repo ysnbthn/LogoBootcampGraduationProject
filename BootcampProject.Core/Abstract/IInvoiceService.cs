@@ -10,7 +10,7 @@ namespace BootcampProject.Core.Abstract
 {
     public interface IInvoiceService
     {
-        PaginatedInvoicesDto GetPaginatedInvoices(int page, bool? isPaid);
+        PaginatedInvoicesDto GetPaginatedInvoices(int page);
         ResponseDto AddInvoice(CreateInvoiceDto entity);
         ResponseDto DeleteInvoice(int entityId);
         ResponseDto UpdateInvoice(UpdateInvoiceDto entity);

@@ -19,8 +19,6 @@ namespace BootcampProject.Domain.Entities
 
         public decimal Amount { get; set; }
         public DateTime PaymentDue { get; set; }
-        public bool Paid { get; set; }
-        public DateTime BillingDate { get; set; }
 
         public IList<ApplicationUserInvoice> ApplicationUserInvoices { get; set; }
 

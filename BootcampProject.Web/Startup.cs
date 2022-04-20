@@ -65,6 +65,7 @@ namespace BootcampProject.Web
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IApartmentService, ApartmentService>();
             services.AddTransient<IInvoiceService, InvoiceService>();
+            services.AddTransient<IPaymentService, PaymentService>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddAutoMapper(typeof(MappingProfiles).Assembly);
 

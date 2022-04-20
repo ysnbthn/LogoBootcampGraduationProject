@@ -40,6 +40,9 @@
                                     <td>@invoice.CreatedAt.ToShortDateString()</td>
                                     <td>@invoice.PaymentDue.ToShortDateString()</td>
                                     <td>
+                                        <a class="btn btn-sm btn-success" asp-action="Create" asp-controller="Payment" asp-route-id="@invoice.Id">
+                                            <i class="fa-solid fa-person-circle-plus"></i>
+                                        </a>
                                         <a class="btn btn-sm btn-warning" asp-action="Update" asp-controller="Invoice" asp-route-id="@invoice.Id">
                                             <i class="fa-regular fa-pen-to-square"></i>
                                         </a>

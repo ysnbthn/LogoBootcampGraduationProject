@@ -1,0 +1,77 @@
+﻿@using BootcampProject.Core.DTOs.PaymnetDtos
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Create New Payment";
+}
+@model CreatePaymentDto
+
+<div class="row mt-5 mb-5">
+    <div class="col-10 offset-1">
+
+        <div class="row">
+            <div class="col-12 mb-5">
+                <h1 class="form-control">Payment Details</h1>
+                <p class="form-control">Invoice Type : @Model.PaymentType</p>
+                <p class="form-control">Inovice Amount : @Model.Amount</p>
+                <p class="form-control">Inoice Payment Due : @Model.PaymentDue.ToShortDateString()</p>
+            </div>
+
+            <div class="col-12">
+                @using (Html.BeginForm("Create", "Payment", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+
+                    @Html.TextBoxFor(x=>x.Amount, new { @class = "form-control", type="hidden", value=Model.Amount })
+                    @Html.TextBoxFor(x=>x.PaymentDue, new { @class = "form-control", type="hidden", value=Model.PaymentDue })
+                    @Html.TextBoxFor(x=>x.PaymentType, new { @class = "form-control", type="hidden", value=Model.PaymentType })
+
+                    
+
+                    <div class="card-body">
+                        <h5 class="text-center">Select Users</h5>
+                        <p>Select and add users then press submit button to create new payment</p>
+                        <p class="text-danger">@TempData["Error"]</p>
+
+                        <div class="mb-3">
+                            <div class="input-group">
+                                @Html.DropDownList("Id", (List<SelectListItem>)ViewBag.InvoiceTypes, new { @class = "form-control", id="userList"})
+                                <button class="btn btn-primary" type="button" id="Add">Add User</button>
+                            </div>
+                        </div>
+
+                        
+                        <div id="users">
+                            <h6>Selected Users</h6>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+<script type="text/javascript">
+        let count = 0;
+
+        $("#Add").click(function(event){
+            console.log("clicked");
+        var user = $("#userList option:selected").val();
+        var userName = $("#userList option:selected").text();
+        $("#users").append("<div class='mb-5' id='user"+user+"'> <input type='hidden' name='Users["+count+"]' value='"+user+"' /> <p>"+userName+"</p> <button type='button' class='btn btn-danger' onclick='removeUser("+user+", "+count+")'>Remove</button> </div>");
+        count++;
+
+        // remove selected from optionlist
+    });
+
+    function removeUser(user, countNo){
+        $("#user"+user).remove();
+        $("#users").append("<input type='hidden' name='Users["+countNo+"]' value='' />")
+
+        // add removed back to optionlist
+    }
+
+</script>
+}

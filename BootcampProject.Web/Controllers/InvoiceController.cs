@@ -15,16 +15,16 @@ namespace BootcampProject.Web.Controllers
             _invoiceService = invoiceService;
         }
 
-        public IActionResult Index(int page, bool? isPaid)
+        public IActionResult Index(int page)
         {
             if (page == 0) page = 1;
-            return View(_invoiceService.GetPaginatedInvoices(page, isPaid));
+            return View(_invoiceService.GetPaginatedInvoices(page));
         }
 
         [HttpGet]
         public IActionResult Create()
         {
-            ViewBag.InvoiceTypes = ViewBag.InvoiceTypes = _invoiceService.GetInvoices().Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() }).ToList();
+            ViewBag.InvoiceTypes = _invoiceService.GetInvoices().Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() }).ToList();
 
             return View();
         }

@@ -4,14 +4,16 @@ using BootcampProject.DataAccess.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BootcampProject.DataAccess.EntityFramework.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220419165251_changeInvoice")]
+    partial class changeInvoice
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -246,7 +248,7 @@ namespace BootcampProject.DataAccess.EntityFramework.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2022, 4, 19, 22, 48, 58, 446, DateTimeKind.Local).AddTicks(4078),
+                            CreatedAt = new DateTime(2022, 4, 19, 19, 52, 51, 370, DateTimeKind.Local).AddTicks(7293),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "A",
@@ -255,7 +257,7 @@ namespace BootcampProject.DataAccess.EntityFramework.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2022, 4, 19, 22, 48, 58, 447, DateTimeKind.Local).AddTicks(5253),
+                            CreatedAt = new DateTime(2022, 4, 19, 19, 52, 51, 372, DateTimeKind.Local).AddTicks(447),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "B",
@@ -264,7 +266,7 @@ namespace BootcampProject.DataAccess.EntityFramework.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2022, 4, 19, 22, 48, 58, 447, DateTimeKind.Local).AddTicks(5269),
+                            CreatedAt = new DateTime(2022, 4, 19, 19, 52, 51, 372, DateTimeKind.Local).AddTicks(464),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "A1",
@@ -304,7 +306,7 @@ namespace BootcampProject.DataAccess.EntityFramework.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2022, 4, 19, 22, 48, 58, 449, DateTimeKind.Local).AddTicks(2509),
+                            CreatedAt = new DateTime(2022, 4, 19, 19, 52, 51, 373, DateTimeKind.Local).AddTicks(8906),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "1+1",
@@ -313,7 +315,7 @@ namespace BootcampProject.DataAccess.EntityFramework.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2022, 4, 19, 22, 48, 58, 449, DateTimeKind.Local).AddTicks(2836),
+                            CreatedAt = new DateTime(2022, 4, 19, 19, 52, 51, 373, DateTimeKind.Local).AddTicks(9208),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "2+1",
@@ -322,7 +324,7 @@ namespace BootcampProject.DataAccess.EntityFramework.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2022, 4, 19, 22, 48, 58, 449, DateTimeKind.Local).AddTicks(2841),
+                            CreatedAt = new DateTime(2022, 4, 19, 19, 52, 51, 373, DateTimeKind.Local).AddTicks(9213),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "3+1",
@@ -331,7 +333,7 @@ namespace BootcampProject.DataAccess.EntityFramework.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2022, 4, 19, 22, 48, 58, 449, DateTimeKind.Local).AddTicks(2843),
+                            CreatedAt = new DateTime(2022, 4, 19, 19, 52, 51, 373, DateTimeKind.Local).AddTicks(9215),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "4+2",
@@ -406,7 +408,7 @@ namespace BootcampProject.DataAccess.EntityFramework.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2022, 4, 19, 22, 48, 58, 452, DateTimeKind.Local).AddTicks(3487),
+                            CreatedAt = new DateTime(2022, 4, 19, 19, 52, 51, 376, DateTimeKind.Local).AddTicks(7730),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Electric Bill",
@@ -415,7 +417,7 @@ namespace BootcampProject.DataAccess.EntityFramework.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2022, 4, 19, 22, 48, 58, 452, DateTimeKind.Local).AddTicks(3816),
+                            CreatedAt = new DateTime(2022, 4, 19, 19, 52, 51, 376, DateTimeKind.Local).AddTicks(8038),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Gas Bill",
@@ -424,7 +426,7 @@ namespace BootcampProject.DataAccess.EntityFramework.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2022, 4, 19, 22, 48, 58, 452, DateTimeKind.Local).AddTicks(3821),
+                            CreatedAt = new DateTime(2022, 4, 19, 19, 52, 51, 376, DateTimeKind.Local).AddTicks(8043),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Water Bill",
@@ -433,72 +435,12 @@ namespace BootcampProject.DataAccess.EntityFramework.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2022, 4, 19, 22, 48, 58, 452, DateTimeKind.Local).AddTicks(3822),
+                            CreatedAt = new DateTime(2022, 4, 19, 19, 52, 51, 376, DateTimeKind.Local).AddTicks(8044),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "Dues",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
-                });
-
-            modelBuilder.Entity("BootcampProject.Domain.Entities.Payment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Amount")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.Property<DateTime>("BillingDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DeletedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsPaid")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("PaymentDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("PaymentDue")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("PaymentType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("UserEmail")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("UserName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("UserPhone")
-                        .IsRequired()
-                        .HasMaxLength(11)
-                        .HasColumnType("nvarchar(11)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Payments");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
