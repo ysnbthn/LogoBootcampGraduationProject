@@ -1,6 +1,5 @@
 ﻿using BootcampProject.Core.Abstract;
 using BootcampProject.Core.DTOs.PaymnetDtos;
-using BootcampProject.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
@@ -22,12 +21,13 @@ namespace BootcampProject.Web.Controllers
             return View();
         }
 
-        [HttpGet("Payment/Create/{invoiceId}")]
-        public IActionResult Create(int invoiceId)
+        //[HttpGet("Payment/Create/{invoiceId}")]
+        [HttpGet]
+        public IActionResult Create(int id)
         {
             ViewBag.InvoiceTypes = _paymentService.GetUsersForPayment().Select(x => new SelectListItem { Text = x.Email, Value = x.Id.ToString() }).ToList();
 
-            CreatePaymentDto paymentModel = _paymentService.GetInvoiceForPayment(invoiceId);
+            CreatePaymentDto paymentModel = _paymentService.GetInvoiceForPayment(id);
 
             return View(paymentModel);
         }
@@ -35,18 +35,18 @@ namespace BootcampProject.Web.Controllers
         [HttpPost]
         public IActionResult Create(CreatePaymentDto paymentModel)
         {
-            paymentModel.BillingDate = DateTime.Now;
+
             if (!ModelState.IsValid)
             {
                 throw new Exception("Payment model is not valid");
             }
-
+   
             var result = _paymentService.AddPayment(paymentModel);
 
             if (result.Success)
             {
                 TempData["Message"] = result.Data;
-                return RedirectToAction("Index", TempData);
+                return RedirectToAction("Index", "Invoice", TempData);
             }
 
             ViewBag.InvoiceTypes = _paymentService.GetUsersForPayment().Select(x => new SelectListItem { Text = x.Email, Value = x.Id.ToString() }).ToList();

@@ -26,14 +26,45 @@ namespace BootcampProject.Core.Concretes
 
         public ResponseDto AddPayment(CreatePaymentDto entity)
         {
-            var paymentExists = _repository.Get().Any(x => x.PaymentType == entity.PaymentType && x.BillingDate.Month == entity.BillingDate.Month);
+            bool isUserListEmpty = true;
+            string userListThatHaveThisPayment = "";
 
-            if (paymentExists) return new ResponseDto { Error = "Payment already exists", Success = false };
+            foreach(var x in entity.Users)
+            {
+                if(x != null || x != "")
+                {
+                    isUserListEmpty = false;
 
-            //_repository.Add(_mapper.Map<Payment>(entity)); // her user için elle ekle Hangfire kullanmaya çalış
-            //_unitOfWork.Commit();
-            
-            return new ResponseDto { Success = true, Data= "Payment Added" };
+                    int id = Convert.ToInt32(x);
+                    var user = _unitOfWork.Context.Users.FirstOrDefault(x => x.Id == id);
+                    entity.UserName = user.Name + " " + user.Surname;
+                    entity.UserEmail = user.Email;
+                    entity.UserPhone = user.PhoneNumber;
+                    entity.BillingDate = DateTime.Now;
+
+                    var paymentExists = _repository.Get().Any(x => x.PaymentType == entity.PaymentType && x.BillingDate.Month == entity.BillingDate.Month && x.UserEmail == entity.UserEmail);
+
+                    //if (paymentExists) return new ResponseDto { Error = $"This payment already exists for user: {entity.UserEmail}.", Success = false };
+
+                    if (!paymentExists)
+                    {
+                        _repository.Add(_mapper.Map<Payment>(entity)); // use hangfire
+                        _unitOfWork.Commit();
+                    }
+                    else
+                    {
+                        userListThatHaveThisPayment += $" {entity.UserEmail} ";
+                    }
+
+                }
+            }
+
+            if(userListThatHaveThisPayment != "")
+            {
+                return new ResponseDto { Error = $"This payment already exists for user(s): {userListThatHaveThisPayment}.", Success = false };
+            }
+
+            return isUserListEmpty ? new ResponseDto { Error = "User list cannot be empty", Success = false } : new ResponseDto { Data = "Payment(s) Added", Success = true };
         }
 
         public CreatePaymentDto GetInvoiceForPayment(int invoiceId)

@@ -25,7 +25,7 @@
                     @Html.TextBoxFor(x=>x.PaymentDue, new { @class = "form-control", type="hidden", value=Model.PaymentDue })
                     @Html.TextBoxFor(x=>x.PaymentType, new { @class = "form-control", type="hidden", value=Model.PaymentType })
 
-                    
+
 
                     <div class="card-body">
                         <h5 class="text-center">Select Users</h5>
@@ -39,7 +39,7 @@
                             </div>
                         </div>
 
-                        
+
                         <div id="users">
                             <h6>Selected Users</h6>
                         </div>
@@ -54,24 +54,33 @@
 
 @section scripts{
 <script type="text/javascript">
-        let count = 0;
+            // TODO: prevent submit if list null
 
-        $("#Add").click(function(event){
-            console.log("clicked");
-        var user = $("#userList option:selected").val();
-        var userName = $("#userList option:selected").text();
-        $("#users").append("<div class='mb-5' id='user"+user+"'> <input type='hidden' name='Users["+count+"]' value='"+user+"' /> <p>"+userName+"</p> <button type='button' class='btn btn-danger' onclick='removeUser("+user+", "+count+")'>Remove</button> </div>");
-        count++;
+            let count = 0;
 
-        // remove selected from optionlist
-    });
+            $("#Add").click(function(event){
+            if($("#userList option:selected").val() != undefined){
+                var user = $("#userList option:selected").val();
+                var userName = $("#userList option:selected").text();
+                $("#users").append("<div class='mb-5' id='user"+user+"'> <input type='hidden' name='Users["+count+"]' value='"+user+"' /> <p>"+userName+"</p> <button type='button' class='btn btn-danger' onclick='removeUser("+user+", "+count+")'>Remove</button> </div>");
+                count++;
+            }
 
-    function removeUser(user, countNo){
-        $("#user"+user).remove();
-        $("#users").append("<input type='hidden' name='Users["+countNo+"]' value='' />")
 
-        // add removed back to optionlist
-    }
+            // remove selected from optionlist
+            $("#userList option:selected").remove();
+        });
+
+        function removeUser(user, countNo){
+            let value = $("#user"+user).children("input").val();
+            let text = $("#user"+user).children("p").text();
+
+            $("#user"+user).remove();
+            $("#users").append("<input type='hidden' name='Users["+countNo+"]' value='' />")
+
+            // add removed back to optionlist
+            $("#userList").append("<option value='"+value+"'>"+text+"</option>")
+        }
 
 </script>
 }

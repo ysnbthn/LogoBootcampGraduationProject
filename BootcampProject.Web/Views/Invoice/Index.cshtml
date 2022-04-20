@@ -112,27 +112,18 @@
 <script type="text/javascript">
 
          $(document).ready(function() {
-            var success = @((TempData["Message"] != null).ToString().ToLower());
 
-            if (success == true) {
+            let success = @((TempData["Message"] != null).ToString().ToLower());
+            console.log(success);
+
+            if (success) {
                 $(document).Toasts('create', {
-            class: 'bg-success',
-            title: 'Success',
-            subtitle: '',
-            body: '@TempData["Message"]'
-          });
-
-          //$(document).ready(function() {
-          //  var fail = @((TempData["Error"] != null).ToString().ToLower());
-
-          //  if (fail == true) {
-          //      $(document).Toasts('create', {
-          //  class: 'bg-danger',
-          //  title: 'Error',
-          //  subtitle: '',
-          //  body: '@TempData["Error"]'
-          //});
-
+                class: 'bg-success',
+                title: 'Success',
+                subtitle: '',
+                body: '@TempData["Message"]'
+                });
+            }
         });
 
 </script>
