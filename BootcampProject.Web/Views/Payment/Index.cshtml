@@ -49,6 +49,7 @@
                             <th>Amount</th>
                             <th>Payment Status</th>
                             <th>Billing Date</th>
+                            <th>Payment Due</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -62,6 +63,7 @@
                                 <td>@payment.Amount</td>
                                 <td>@(payment.IsPaid ? "Paid" : "Not Paid")</td>
                                 <td>@payment.BillingDate.ToShortDateString()</td>
+                                <td>@payment.PaymentDue.ToShortDateString()</td>
                             </tr>
                         }
                     </tbody>
