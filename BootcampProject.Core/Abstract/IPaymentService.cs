@@ -10,7 +10,7 @@ namespace BootcampProject.Core.Abstract
 {
     public interface IPaymentService
     {
-        PaginatedPaymentsDto GetPaginatedApartments(int page, bool? paid, int month);
+        PaginatedPaymentsDto GetPaginatedPayments(int page, bool? paid, int month);
         ResponseDto AddPayment(CreatePaymentDto entity);
         //ResponseDto DeleteApartment(int entityId);
         //UpdateApartmentDto GetApartmentById(int id);

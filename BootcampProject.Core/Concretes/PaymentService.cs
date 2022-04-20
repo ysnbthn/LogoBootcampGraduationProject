@@ -72,13 +72,13 @@ namespace BootcampProject.Core.Concretes
             return _mapper.Map<CreatePaymentDto>(_unitOfWork.Context.Invoices.Include(x => x.InvoiceType).FirstOrDefault(x => x.Id == invoiceId));
         }
 
-        public PaginatedPaymentsDto GetPaginatedApartments(int page, bool? paid, int month)
+        public PaginatedPaymentsDto GetPaginatedPayments(int page, bool? paid, int month)
         {
             int totalPayments = _repository.Get().Count();
             int max = Convert.ToInt32(Math.Ceiling(totalPayments / 10.0)) == 0 ? 1 : Convert.ToInt32(Math.Ceiling(totalPayments / 10.0));
 
 
-            var payments = (paid != null) ? _repository.Get().OrderByDescending(x => x.PaymentDue).Where(x => x.PaymentDue.Month == month)
+            var payments = (paid == null) ? _repository.Get().OrderByDescending(x => x.PaymentDue).Where(x => x.PaymentDue.Month == month)
                                                 .Skip(((page >= max ? max : page) - 1) * 10).Take(10).ToList()
                                           : _repository.Get().OrderByDescending(x => x.PaymentDue).Where(x => x.PaymentDue.Month == month && x.IsPaid == paid)
                                                 .Skip(((page >= max ? max : page) - 1) * 10).Take(10).ToList();

@@ -11,14 +11,20 @@ namespace BootcampProject.Web.Controllers
     {
         private readonly IPaymentService _paymentService;
 
-        public PaymentController(IPaymentService paymentService, IInvoiceService invoiceService)
+        public PaymentController(IPaymentService paymentService)
         {
             _paymentService = paymentService;
         }
 
-        public IActionResult Index()
+        [HttpGet]
+        public IActionResult Index(int page, bool? paid, int month)
         {
-            return View();
+            if (page == 0) page = 1;
+            if (month == 0) month = DateTime.Now.Month;
+
+            var paymentDtos = _paymentService.GetPaginatedPayments(page, paid, month);
+
+            return View(paymentDtos);
         }
 
         //[HttpGet("Payment/Create/{invoiceId}")]

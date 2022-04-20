@@ -35,14 +35,8 @@ namespace BootcampProject.Core.MappingProfiles
                 .ForMember(d => d.Id, o => o.MapFrom(s => s.OwnerOrHirerId));
             
             CreateMap<ApplicationUser, UsersForPaymentDto>();
-            CreateMap<CreatePaymentDto, Payment>();//test
-                //.ForMember(d => d.Amount, o => o.MapFrom(s => s.Amount))
-                //.ForMember(d => d.BillingDate, o => o.MapFrom(s => s.BillingDate))
-                //.ForMember(d => d.PaymentDue, o => o.MapFrom(s => s.PaymentDue))
-                //.ForMember(d => d.PaymentType, o => o.MapFrom(s => s.PaymentType))
-                //.ForMember(d => d.UserName, o => o.MapFrom(s => s.UserName))
-                //.ForMember(d => d.UserEmail, o=>o.MapFrom(s=>s.UserEmail))
-                //.ForMember(d=>d.);
+            CreateMap<CreatePaymentDto, Payment>(); //test
+            CreateMap<Payment, GetPaymentDto>();
 
             CreateMap<Invoice, CreatePaymentDto>()
                 .ForMember(d => d.PaymentType, o => o.MapFrom(s => s.InvoiceType.Name))

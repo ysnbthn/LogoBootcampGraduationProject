@@ -1,0 +1,145 @@
+﻿@using BootcampProject.Core.DTOs.PaymnetDtos
+@model PaginatedPaymentsDto
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Payments";
+}
+
+<div class="row mt-5 mb-5">
+    <div class="col-10 offset-1">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Payments List</h3>
+
+                <div class="card-tools">
+                    <div class="input-group" style="width: 250px;">
+                        <select name="isPaid" class="form-select mr-2" id="filter-paid">
+                            <option value="">All</option>
+                            <option value="true">Paid</option>
+                            <option value="false">Pending</option>
+                        </select>
+                        
+                        <select class="form-select mr-2" id="filter-month">
+                            <option value="1">January</option>
+                            <option value="2">February </option>
+                            <option value="3">March</option>
+                            <option value="4">April</option>
+                            <option value="5">May</option>
+                            <option value="6">June</option>
+                            <option value="7">July</option>
+                            <option value="8">August</option>
+                            <option value="9">September</option>
+                            <option value="10">October</option>
+                            <option value="11">November</option>
+                            <option value="12">December</option>
+                        </select>
+                        <a class="btn btn-sm btn-primary" id="filter" href="" >Filter</a>
+                    </div>
+                </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body table-responsive p-0">
+                <table class="table table-hover text-nowrap text-center">
+                    <thead>
+                        <tr>
+                            <th>Payment Type</th>
+                            <th>User Name</th>
+                            <th>User Email</th>
+                            <th>User Phone</th>
+                            <th>Amount</th>
+                            <th>Payment Status</th>
+                            <th>Billing Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var payment in Model.Payments)
+                        {
+                            <tr>
+                                <td>@payment.PaymentType</td>
+                                <td>@payment.UserName</td>
+                                <td>@payment.UserEmail</td>
+                                <td>@payment.UserPhone</td>
+                                <td>@payment.Amount</td>
+                                <td>@(payment.IsPaid ? "Paid" : "Not Paid")</td>
+                                <td>@payment.BillingDate.ToShortDateString()</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <div class="card-footer clearfix">
+                    <ul class="pagination pagination-sm m-0 float-right">
+                        <li class="page-item"><a class="page-link" asp-action="Index" asp-controller="Payment" asp-route-id="1">&laquo;</a></li>
+                        @for (int page = Model.CurrentPage - 2 > 0 ? Model.CurrentPage - 2 : 1; page <= (Model.CurrentPage + 2 <= Model.TotalPages ? Model.CurrentPage + 2 : Model.TotalPages); page++)
+                        {
+                            if (page == Model.CurrentPage)
+                            {
+                                <li class="page-item active">
+                                    <a class="page-link" href="" >@(page)</a>
+@*                                    @Html.ActionLink(page.ToString(), new { @class = "page-link" })*@
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="page-item">
+                                    @Html.ActionLink(page.ToString(), "Index", "Payment", null, null, null, new { page = page }, new { @class = "page-link" })
+                                </li>
+                            }
+                        }
+                        <li class="page-item"><a class="page-link" asp-action="Index" asp-controller="Payment" asp-route-id="@Model.TotalPages">&raquo;</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+</div>
+
+@section scripts{
+
+<script type="text/javascript">
+
+     $(document).ready(function() {
+
+        let success = @((TempData["Message"] != null).ToString().ToLower());
+        
+        if (success) {
+            $(document).Toasts('create', {
+            class: 'bg-success',
+            title: 'Success',
+            subtitle: '',
+            body: '@TempData["Message"]'
+            });
+        }
+    });
+
+    $("#filter").click(function (){
+        let paid = $("#filter-paid option:selected").val();
+        let month = $("#filter-month option:selected").val();
+        let url = "/Payment/Index?paid=" + paid + "&month=" + month;
+        $("#filter").attr("href", url);
+    });
+    
+    $(".page-link").click(function(){
+        
+        let paid = $("#filter-paid option:selected").val();
+        let month = $("#filter-month option:selected").val();
+        let page = $(this).text();
+        let url = "/Payment/Index?page="+page+"&paid=" + paid + "&month=" + month;
+        $(this).attr("href", url);
+    });
+
+</script>
+}
+
+<script type="text/javascript">
+    
+    
+    
+    function getId(clicked_id) {
+            this.clickId = clicked_id;
+            console.log(clickId);
+
+            $('#invId').attr("value", clicked_id)
+         }
+</script>
