@@ -2,11 +2,7 @@
 using BootcampProject.DataAccess.MongoDB.Repository.Abstract;
 using BootcampProject.Domain.MongoDbEntities;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BootcampProject.PaymentApi.Controllers
 {
@@ -44,17 +40,16 @@ namespace BootcampProject.PaymentApi.Controllers
 
         [HttpPost]
         [Route("MakePayment")]
-        public IActionResult MakePayment([FromBody] BillPaymentDto bill)
+        public IActionResult MakePayment(BillPaymentDto bill)
         {
             var result = _repository.MakePayment(bill.User, bill.Amount);
             return result.Success ? Ok(result.Data) : BadRequest(result.Error);
         }
 
-        [HttpDelete]
-        [Route("{email}/{cardNumber}")]
-        public IActionResult DeleteCard(string email, string cardNumber)
+        [HttpPost("DeleteCard")]
+        public IActionResult DeleteCard(DeleteCreditCardDto card)
         {
-            _repository.DeleteCreditCard(email, cardNumber);
+            _repository.DeleteCreditCard(card.Email, card.CreditCardNumber);
             return Ok();
         }
     }

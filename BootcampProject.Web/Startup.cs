@@ -9,6 +9,7 @@ using BootcampProject.DataAccess.EntityFramework;
 using BootcampProject.DataAccess.EntityFramework.Repository.Abstracts;
 using BootcampProject.DataAccess.EntityFramework.Repository.Concretes;
 using BootcampProject.Domain.Entities;
+using BootcampProject.Domain.MongoDbEntities;
 using BootcampProject.Web.Middlewares;
 using FluentValidation;
 using FluentValidation.AspNetCore;
@@ -57,9 +58,9 @@ namespace BootcampProject.Web
             services.AddTransient<IValidator<UpdateUserDto>, UpdateUserValidator>();
             services.AddTransient<IValidator<CreateApartmentDto>, CreateApartmentValidator>();
             services.AddTransient<IValidator<UpdateApartmentDto>, UpdateApartmentValidator>();
-            
             services.AddTransient<IValidator<CreateInvoiceDto>, CreateInvoiceValidator>();
             services.AddTransient<IValidator<UpdateInvoiceDto>, UpdateInvoiceValidator>();
+            services.AddTransient<IValidator<CreditCard>, CreditCardValidator>();
 
             services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
             services.AddTransient<IUserService, UserService>();

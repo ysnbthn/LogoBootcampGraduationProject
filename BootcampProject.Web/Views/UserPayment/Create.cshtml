@@ -15,6 +15,7 @@
                     <p class="text-danger">@TempData["Error"]</p>
 
                     <div class="mb-3">
+                        @Html.LabelFor(x=>x.CardNumber, "Credit card number (Brand must be MASTERCARD)")
                         <div class="input-group">
                             @Html.TextBoxFor(x => x.CardNumber, new {@class = "form-control", placeholder = "Credit Card Number", maxlength="15"})
                         </div>
@@ -22,6 +23,7 @@
                     </div>
 
                     <div class="mb-3">
+                        @Html.LabelFor(x=>x.CVV, "Card Validation Value (CVV)")
                         <div class="input-group">
                             @Html.TextBoxFor(x => x.CVV, new {@class = "form-control", placeholder = "CVV", maxlength="3"})
                         </div>
@@ -29,6 +31,7 @@
                     </div>
 
                     <div class="mb-3">
+                        @Html.LabelFor(x=>x.CVV, "Name of the card owner")
                         <div class="input-group">
                             @Html.TextBoxFor(x => x.Name, new {@class = "form-control", placeholder = "Name on the card", maxlength="20"})
                         </div>
@@ -36,17 +39,11 @@
                     </div>
 
                     <div class="mb-3">
+                        @Html.LabelFor(x=>x.CVV, "Expiry Date (Enter as dd/yyyy)")
                         <div class="input-group">
                             @Html.TextBoxFor(x => x.Expiry, new {@class = "form-control", placeholder = "Expiry Date ex: 04/2029", maxlength="20"})
                         </div>
                         @Html.ValidationMessageFor(x => x.Expiry, null, new {@class = "text-danger mb-1"})
-                    </div>
-
-                    <div class="mb-3">
-                        <div class="input-group">
-                            @Html.TextBoxFor(x => x.IssuingNetwork, new {@class = "form-control", placeholder = "IssuingNetwork", maxlength="20"})
-                        </div>
-                        @Html.ValidationMessageFor(x => x.IssuingNetwork, null, new {@class = "text-danger mb-1"})
                     </div>
                     
                     <button type="submit" class="btn btn-primary">Save changes</button>

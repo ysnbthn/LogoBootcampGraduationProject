@@ -1,7 +1,6 @@
 ﻿using BootcampProject.Core.DTOs;
 using BootcampProject.DataAccess.MongoDB.Repository.Abstract;
 using BootcampProject.Domain.MongoDbEntities;
-using MongoDB.Bson;
 using MongoDB.Driver;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,7 +33,8 @@ namespace BootcampProject.DataAccess.MongoDB.Repository.Concrete
 
         public List<CreditCard> GetCreditCardsOfUser(string email)
         {
-            return _users.Find(x => x.Email == email).FirstOrDefault().CreditCards.ToList();
+            var cards = _users.Find(x => x.Email == email).FirstOrDefault().CreditCards.ToList();
+            return cards == null ? new List<CreditCard> (): cards;
         }
 
         public void DeleteCreditCard(string email, string cardNumber)

@@ -70,8 +70,8 @@
             </div>
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <form asp-action="Delete" asp-controller="UserPayment" method="post">
-                    <input type="hidden" name="CardNumber" value="" id="cardId" />
+                <form asp-action="DeleteCard" asp-controller="UserPayment" method="post">
+                    <input type="hidden" name="CreditCardNumber" value="" id="cardId" />
                     <input type="submit" class="btn btn-sm btn-danger" id="modalDeleteButton" value="Delete">
                 </form>
             </div>

@@ -60,7 +60,7 @@
                                 <td>@payment.UserName</td>
                                 <td>@payment.UserEmail</td>
                                 <td>@payment.UserPhone</td>
-                                <td>@payment.Amount</td>
+                                <td>@(payment.Amount + "₺")</td>
                                 <td>@(payment.IsPaid ? "Paid" : "Not Paid")</td>
                                 <td>@payment.BillingDate.ToShortDateString()</td>
                                 <td>@payment.PaymentDue.ToShortDateString()</td>

@@ -60,7 +60,9 @@
                                 <td>@payment.BillingDate.ToShortDateString()</td>
                                 <td>@payment.PaymentDue.ToShortDateString()</td>
                                 <td>
-                                    <a class="btn btn-sm btn-primary" href="@Url.Action("Pay", "UserPayment", new { id = payment.Id })"><i class="fa-brands fa-paypal"></i></a>
+                                    @if(!payment.IsPaid){
+                                        <a class="btn btn-sm btn-primary" href="/UserPayment/Pay?id=@payment.Id"><i class="fa-brands fa-paypal"></i></a>
+                                    }
                                 </td>
                             </tr>
                         }

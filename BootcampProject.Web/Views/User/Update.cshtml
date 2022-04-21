@@ -21,20 +21,6 @@
             <div class="card-body">
                 <p class="text-danger">@TempData["CreateError"]</p>
 
-                @*<div class="mb-3">
-                    <div class="input-group">
-                        @Html.TextBoxFor(x => x.Email, new {@class = "form-control", placeholder = "Email", type="email", value=Model.Email})
-                    </div>
-                    @Html.ValidationMessageFor(x => x.Email, null, new {@class = "text-danger mb-1"})
-                </div>
-
-                <div class="mb-3">
-                    <div class="input-group">
-                        @Html.TextBoxFor(x => x.Password, new {@class = "form-control", placeholder = "reset Password", type="Password"})
-                    </div>
-                    @Html.ValidationMessageFor(x => x.Email, null, new {@class = "text-danger mb-1"})
-                </div>*@
-
                 <div class="mb-3">
                     <div class="input-group">
                         @Html.TextBoxFor(x => x.Name, new {@class = "form-control", placeholder = "Name", value=Model.Name})

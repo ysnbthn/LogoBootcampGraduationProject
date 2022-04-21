@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 
 namespace BootcampProject.Core.DTOs.UserPaymentDtos
 {
-    public class BillPaymentDto
+    public class BillPaymentDto // apiye giden
     {
-        public User User { get => User == null ? new User { CreditCards = new CreditCard[] { } } : User; set => User = value; } 
+        public User User { get; set; } 
         public double Amount { get; set; }
-        public int InvoiceId { get; set; }
     }
 }

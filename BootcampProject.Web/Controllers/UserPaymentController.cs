@@ -27,6 +27,14 @@ namespace BootcampProject.Web.Controllers
             return View(userPayments);
         }
 
+        [HttpPost]
+        public IActionResult Index([FromForm] BillDto bill)
+        {
+            var result = _userPaymentService.Pay(bill);
+
+            return View();
+        }
+
         public IActionResult CreditCards()
         {
             var cards = _userPaymentService.GetCreditCards();
@@ -35,13 +43,17 @@ namespace BootcampProject.Web.Controllers
 
         public IActionResult Create()
         {
-
             return View();
         }
 
         [HttpPost]
         public IActionResult Create([FromForm] CreditCard card)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(card);
+            }
+
             var result = _userPaymentService.AddCreditCard(card);
 
             if (result.Success)
@@ -53,20 +65,28 @@ namespace BootcampProject.Web.Controllers
             TempData["Error"] = result.Error;
             return View();
         }
-        
 
-        public IActionResult Pay(int id)
+
+        public IActionResult Pay([FromQuery] int id)
         {
             ViewBag.CreditCards = _userPaymentService.GetCreditCards().Select(x => new SelectListItem { Text = x.CardNumber, Value = x.CardNumber }).ToList();
             ViewBag.id = id;
             return View();
         }
 
-        [HttpPost("{paymentId}")]
-        public IActionResult Pay([FromForm] BillPaymentDto bill)
+        [HttpPost]
+        public IActionResult Pay([FromForm] BillDto bill)
         {
             var result = _userPaymentService.Pay(bill);
-            return View();
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public IActionResult DeleteCard([FromForm] DeleteCreditCardDto card)
+        {
+            _userPaymentService.DeleteCreditCard(card);
+
+            return RedirectToAction("CreditCards");
         }
 
     }

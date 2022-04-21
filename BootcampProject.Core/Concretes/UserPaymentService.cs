@@ -7,7 +7,6 @@ using BootcampProject.DataAccess.EntityFramework.Repository.Abstracts;
 using BootcampProject.Domain.Entities;
 using BootcampProject.Domain.MongoDbEntities;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -50,6 +49,7 @@ namespace BootcampProject.Core.Concretes
 
         public ResponseDto AddCreditCard(CreditCard card)
         {
+            card.IssuingNetwork = "MASTERCARD";
             HttpClient client = new HttpClient();
             var url = new Uri("https://localhost:44355/api/CreditCardPayment/NewCard");
 
@@ -82,27 +82,46 @@ namespace BootcampProject.Core.Concretes
             return JsonConvert.DeserializeObject<List<CreditCard>>(responseBody).ToList();
         }
 
-        public ResponseDto Pay(BillPaymentDto bill)
+        public ResponseDto Pay(BillDto bill)
         {
+            // TODO: Refactor this function
+            BillPaymentDto billToPay = new BillPaymentDto();
+            User user = new User();
+
             HttpClient client = new HttpClient();
 
             var url = new Uri("https://localhost:44355/api/CreditCardPayment/" + _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Email));
 
             HttpResponseMessage response = client.GetAsync(url).Result;
             string responseBody = response.Content.ReadAsStringAsync().Result;
-            var card = JsonConvert.DeserializeObject<List<CreditCard>>(responseBody).ToList().FirstOrDefault(x=>x.CardNumber == bill.User.CreditCards[0].CardNumber);
+            var card = JsonConvert.DeserializeObject<List<CreditCard>>(responseBody).ToList().FirstOrDefault(x=>x.CardNumber == bill.CreditCardNumber);
 
             url = new Uri("https://localhost:44355/api/CreditCardPayment/MakePayment");
 
-            bill.User.Email = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Email);
-            bill.User.CreditCards[0] = card;
+            user.Email = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Email);
+            user.CreditCards = new CreditCard[] {
+                new CreditCard
+                {
+                    CardNumber = card.CardNumber,
+                    CVV = card.CVV,
+                    Expiry = card.Expiry,
+                    IssuingNetwork = card.IssuingNetwork,
+                    Name = card.Name,
+                    Balance = card.Balance,
+                }
+            };
 
-            var serilizedObject = Newtonsoft.Json.JsonConvert.SerializeObject(bill);
+            var payment = _repository.GetById(bill.InvoiceId);
+            billToPay.Amount = Convert.ToDouble(payment.Amount);
+            billToPay.User = user;
+
+            var serilizedObject = Newtonsoft.Json.JsonConvert.SerializeObject(billToPay);
             var requestContent = new StringContent(serilizedObject, Encoding.UTF8, "application/json");
 
             var result = client.PostAsync(url, requestContent).Result;
 
-            var payment = _repository.GetById(bill.InvoiceId);
+            result.EnsureSuccessStatusCode();
+            
             payment.PaymentDate = DateTime.Now;
             payment.IsPaid = true;
             _repository.Update(payment);
@@ -110,6 +129,20 @@ namespace BootcampProject.Core.Concretes
             
 
             return new ResponseDto { Success = true, Data = "Credit Card added" };
+        }
+
+        public ResponseDto DeleteCreditCard(DeleteCreditCardDto card)
+        {
+            card.Email = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Email);
+
+            HttpClient client = new HttpClient();
+            var url = new Uri("https://localhost:44355/api/CreditCardPayment/DeleteCard");
+            var serilizedObject = Newtonsoft.Json.JsonConvert.SerializeObject(card);
+            var requestContent = new StringContent(serilizedObject, Encoding.UTF8, "application/json");
+            var result = client.PostAsync(url, requestContent).Result;
+            result.EnsureSuccessStatusCode();
+
+            return new ResponseDto { Success = true, Data = "Credit card deleted" };
         }
     }
 }
