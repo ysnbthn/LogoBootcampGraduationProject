@@ -14,9 +14,5 @@ namespace BootcampProject.DataAccess.MongoDB.Repository.Abstract
         List<CreditCard> GetCreditCardsOfUser(string email);
 
         ResponseDto MakePayment(User user, double amount);
-
-        //void Update(CreditCardPayment entity);
-        //CreditCardPayment GetById(string id);
-        //IEnumerable<CreditCardPayment> GetAll();
     }
 }

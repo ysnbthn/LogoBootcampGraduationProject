@@ -1,0 +1,32 @@
+﻿@using BootcampProject.Core.DTOs.UserPaymentDtos
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Make Payment";
+}
+@model BillPaymentDto
+
+<div class="row mt-5 mb-5">
+    <div class="col-10 offset-1">
+        @using (Html.BeginForm("Create", "UserPayment", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="card-body">
+                    <p class="text-danger">@TempData["Error"]</p>
+
+                    <div class="mb-3">
+                        <div class="input-group">
+                            @Html.DropDownListFor(x => x.User.CreditCards[0].CardNumber, (List<SelectListItem>)ViewBag.CreditCards, new { @class = "form-control"})
+                        </div>
+                        @Html.ValidationMessageFor(x => x.User.CreditCards[0].CardNumber, null, new {@class = "text-danger mb-1"})
+                    </div>
+                    @Html.TextBoxFor(x=>x.InvoiceId, new { type="hidden", value= ViewBag.id.ToString()})
+
+                    <a asp-action="Create" asp-controller="UserPayment">Add new credit card</a>
+                    
+                    <button type="submit" class="btn btn-primary">Pay</button>
+                </div>
+            }
+    </div>
+</div>
+

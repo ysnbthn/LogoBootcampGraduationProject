@@ -3,10 +3,13 @@ using BootcampProject.Core.Abstract;
 using BootcampProject.Core.DTOs;
 using BootcampProject.DataAccess.EntityFramework.Repository.Abstracts;
 using BootcampProject.Domain.Entities;
+using BootcampProject.Domain.MongoDbEntities;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Text;
 
 namespace BootcampProject.Core.Concretes
 {
@@ -42,6 +45,22 @@ namespace BootcampProject.Core.Concretes
 
             _userManager.CreateAsync(user, entity.Password).Wait();
             _userManager.AddToRoleAsync(user, "Basic").Wait();
+
+            HttpClient client = new HttpClient();
+            var url = new Uri("https://localhost:44355/api/CreditCardPayment/NewUser");
+
+            var userToAddToApi = new User
+            {
+                Email = entity.Email,
+                Password = entity.Password,
+                CreditCards = new CreditCard[] { },
+            };
+
+            var serilizedObject = Newtonsoft.Json.JsonConvert.SerializeObject(userToAddToApi);
+            var requestContent = new StringContent(serilizedObject, Encoding.UTF8, "application/json");
+
+            var response = client.PostAsync(url, requestContent).Result;
+            response.EnsureSuccessStatusCode();
 
             return new ResponseDto { Success = true, Data = "User added successfully" };
         }

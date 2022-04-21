@@ -1,0 +1,56 @@
+﻿@using BootcampProject.Domain.MongoDbEntities
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Create New Credit Card";
+}
+@model CreditCard
+
+<div class="row mt-5 mb-5">
+    <div class="col-10 offset-1">
+        @using (Html.BeginForm("Create", "UserPayment", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="card-body">
+                    <p class="text-danger">@TempData["Error"]</p>
+
+                    <div class="mb-3">
+                        <div class="input-group">
+                            @Html.TextBoxFor(x => x.CardNumber, new {@class = "form-control", placeholder = "Credit Card Number", maxlength="15"})
+                        </div>
+                        @Html.ValidationMessageFor(x => x.CardNumber, null, new {@class = "text-danger mb-1"})
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="input-group">
+                            @Html.TextBoxFor(x => x.CVV, new {@class = "form-control", placeholder = "CVV", maxlength="3"})
+                        </div>
+                        @Html.ValidationMessageFor(x => x.CVV, null, new {@class = "text-danger mb-1"})
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="input-group">
+                            @Html.TextBoxFor(x => x.Name, new {@class = "form-control", placeholder = "Name on the card", maxlength="20"})
+                        </div>
+                        @Html.ValidationMessageFor(x => x.Name, null, new {@class = "text-danger mb-1"})
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="input-group">
+                            @Html.TextBoxFor(x => x.Expiry, new {@class = "form-control", placeholder = "Expiry Date ex: 04/2029", maxlength="20"})
+                        </div>
+                        @Html.ValidationMessageFor(x => x.Expiry, null, new {@class = "text-danger mb-1"})
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="input-group">
+                            @Html.TextBoxFor(x => x.IssuingNetwork, new {@class = "form-control", placeholder = "IssuingNetwork", maxlength="20"})
+                        </div>
+                        @Html.ValidationMessageFor(x => x.IssuingNetwork, null, new {@class = "text-danger mb-1"})
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            }
+    </div>
+</div>

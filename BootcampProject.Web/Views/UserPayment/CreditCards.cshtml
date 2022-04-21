@@ -1,0 +1,114 @@
+﻿@using BootcampProject.Domain.MongoDbEntities
+@model List<CreditCard>
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Your Credit Cards";
+}
+
+<div class="row mt-5 mb-5">
+    <div class="col-10 offset-1">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Credit Card List</h3>
+
+                <div class="card-tools">
+                    <div class="input-group input-group-sm" style="width: 150px;">
+                        <a class="btn btn-sm btn-success" asp-action="Create" asp-controller="UserPayment">
+                            <i class="fa-solid fa-user-plus mr-1"></i> Create New Credit Card
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body table-responsive p-0">
+                <table class="table table-hover text-nowrap text-center">
+                    <thead>
+                        <tr>
+                            <th>IssuingNetwork</th>
+                            <th>CardNumber</th>
+                            <th>Name on card</th>
+                            <th>Expiry Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var card in Model)
+                        {
+                            <tr>
+                                <td>@card.IssuingNetwork</td>
+                                <td>@card.CardNumber</td>
+                                <td>@card.Name</td>
+                                <td>@card.Expiry</td>
+                                <td>
+                                    <a class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modal-delete" onclick="getId('@card.CardNumber')">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+</div>
+
+
+<div class="modal fade" id="modal-delete">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Are you sure?</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Do you really want to delete this record? This process cannot be undone.</p>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <form asp-action="Delete" asp-controller="UserPayment" method="post">
+                    <input type="hidden" name="CardNumber" value="" id="cardId" />
+                    <input type="submit" class="btn btn-sm btn-danger" id="modalDeleteButton" value="Delete">
+                </form>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+@section scripts{
+
+<script type="text/javascript">
+
+     $(document).ready(function() {
+
+        let success = @((TempData["Message"] != null).ToString().ToLower());
+
+        if (success) {
+            $(document).Toasts('create', {
+            class: 'bg-success',
+            title: 'Success',
+            subtitle: '',
+            body: '@TempData["Message"]'
+            });
+        }
+    });
+
+</script>
+}
+
+<script type="text/javascript">
+
+    function getId(clicked_id) {
+            this.clickId = clicked_id;
+            console.log(clickId);
+
+            $('#cardId').attr("value", clicked_id)
+         }
+</script>
+

@@ -1,5 +1,7 @@
-﻿using BootcampProject.Core.DTOs.PaymnetDtos;
+﻿using BootcampProject.Core.DTOs;
+using BootcampProject.Core.DTOs.PaymnetDtos;
 using BootcampProject.Core.DTOs.UserPaymentDtos;
+using BootcampProject.Domain.MongoDbEntities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,8 +14,10 @@ namespace BootcampProject.Core.Abstract
     {
         PaginatedPaymentsDto GetPaginatedUserPayments(int page, bool? paid, int month);
 
-        void Pay(int id);
+        List<CreditCard> GetCreditCards();
 
-        void AddCreditCard(CreditCardDto card);
+        ResponseDto Pay(BillPaymentDto bill);
+
+        ResponseDto AddCreditCard(CreditCard card);
     }
 }

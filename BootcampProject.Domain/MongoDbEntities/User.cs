@@ -18,6 +18,6 @@ namespace BootcampProject.Domain.MongoDbEntities
         [BsonElement("password")]
         public string Password { get; set; }
         [BsonElement("creditCards")]
-        public CreditCard[] CreditCards { get; set; }
+        public CreditCard[] CreditCards { get; set; } = new CreditCard[] { };
     }
 }

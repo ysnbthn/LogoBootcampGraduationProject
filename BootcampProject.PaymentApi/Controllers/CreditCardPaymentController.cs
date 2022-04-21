@@ -27,8 +27,7 @@ namespace BootcampProject.PaymentApi.Controllers
             return _repository.GetCreditCardsOfUser(email);
         }
 
-        [HttpPost]
-        [Route("/NewCreditCard")]
+        [HttpPost("NewCard")]
         public IActionResult NewCard(User creditCard)
         {
             _repository.AddCreditCard(creditCard);
@@ -36,7 +35,7 @@ namespace BootcampProject.PaymentApi.Controllers
         }
 
         [HttpPost]
-        [Route("/NewUser")]
+        [Route("NewUser")]
         public IActionResult NewUser([FromBody] User user)
         {
             _repository.AddUser(user);
@@ -44,15 +43,15 @@ namespace BootcampProject.PaymentApi.Controllers
         }
 
         [HttpPost]
-        [Route("/MakePayment")]
-        public IActionResult MakePayment([FromBody] User user, double amount)
+        [Route("MakePayment")]
+        public IActionResult MakePayment([FromBody] BillPaymentDto bill)
         {
-            var result = _repository.MakePayment(user, amount);
+            var result = _repository.MakePayment(bill.User, bill.Amount);
             return result.Success ? Ok(result.Data) : BadRequest(result.Error);
         }
 
         [HttpDelete]
-        [Route("/DeleteCreditCard/{email}/{cardNumber}")]
+        [Route("{email}/{cardNumber}")]
         public IActionResult DeleteCard(string email, string cardNumber)
         {
             _repository.DeleteCreditCard(email, cardNumber);
