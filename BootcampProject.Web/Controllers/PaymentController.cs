@@ -1,5 +1,6 @@
 ﻿using BootcampProject.Core.Abstract;
 using BootcampProject.Core.DTOs.PaymnetDtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
@@ -15,7 +16,8 @@ namespace BootcampProject.Web.Controllers
         {
             _paymentService = paymentService;
         }
-
+        
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult Index(int page, bool? paid, int month)
         {
@@ -27,7 +29,7 @@ namespace BootcampProject.Web.Controllers
             return View(paymentDtos);
         }
 
-        //[HttpGet("Payment/Create/{invoiceId}")]
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult Create(int id)
         {
@@ -38,6 +40,7 @@ namespace BootcampProject.Web.Controllers
             return View(paymentModel);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult Create(CreatePaymentDto paymentModel)
         {

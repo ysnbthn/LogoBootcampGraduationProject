@@ -1,16 +1,14 @@
+using BootcampProject.DataAccess.MongoDB.Repository.Abstract;
+using BootcampProject.DataAccess.MongoDB.Repository.Concrete;
+using BootcampProject.Domain.MongoDbEntities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using MongoDB.Driver;
 
 namespace BootcampProject.PaymentApi
 {
@@ -26,6 +24,14 @@ namespace BootcampProject.PaymentApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // get connection options
+            services.Configure<UserStoreDatabaseSettings>(Configuration.GetSection("ConnectionStrings"));
+            // add connection as singleton
+            services.AddSingleton<IUserStoreDatabaseSettings>(sp => sp.GetRequiredService<IOptions<UserStoreDatabaseSettings>>().Value);
+            // add mongodb to connect database
+            services.AddSingleton<IMongoClient>(s => new MongoClient(Configuration.GetValue<string>("ConnectionStrings:conn")));
+
+            services.AddTransient<ICreditCardPaymentRepository, CreditCardPaymentRepository>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

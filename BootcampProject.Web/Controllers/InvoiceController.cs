@@ -1,11 +1,13 @@
 ﻿using BootcampProject.Core.Abstract;
 using BootcampProject.Core.DTOs.InvoiceDtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Linq;
 
 namespace BootcampProject.Web.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class InvoiceController : Controller
     {
         IInvoiceService _invoiceService;

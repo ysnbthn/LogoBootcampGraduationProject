@@ -12,9 +12,6 @@ namespace BootcampProject.Core.Abstract
     {
         PaginatedPaymentsDto GetPaginatedPayments(int page, bool? paid, int month);
         ResponseDto AddPayment(CreatePaymentDto entity);
-        //ResponseDto DeleteApartment(int entityId);
-        //UpdateApartmentDto GetApartmentById(int id);
-
         CreatePaymentDto GetInvoiceForPayment(int invoiceId);
         List<UsersForPaymentDto> GetUsersForPayment();
     }

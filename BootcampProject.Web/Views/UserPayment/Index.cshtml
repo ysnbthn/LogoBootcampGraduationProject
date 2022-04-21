@@ -2,14 +2,14 @@
 @model PaginatedPaymentsDto
 @{
     Layout = "_Layout";
-    ViewData["Title"] = "Payments";
+    ViewData["Title"] = "Your Bills";
 }
 
 <div class="row mt-5 mb-5">
     <div class="col-10 offset-1">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Payments List</h3>
+                <h3 class="card-title">Bill List</h3>
 
                 <div class="card-tools">
                     <div class="input-group" style="width: 250px;">
@@ -43,13 +43,11 @@
                     <thead>
                         <tr>
                             <th>Payment Type</th>
-                            <th>User Name</th>
-                            <th>User Email</th>
-                            <th>User Phone</th>
                             <th>Amount</th>
                             <th>Payment Status</th>
                             <th>Billing Date</th>
                             <th>Payment Due</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -57,13 +55,13 @@
                         {
                             <tr>
                                 <td>@payment.PaymentType</td>
-                                <td>@payment.UserName</td>
-                                <td>@payment.UserEmail</td>
-                                <td>@payment.UserPhone</td>
                                 <td>@payment.Amount</td>
                                 <td>@(payment.IsPaid ? "Paid" : "Not Paid")</td>
                                 <td>@payment.BillingDate.ToShortDateString()</td>
                                 <td>@payment.PaymentDue.ToShortDateString()</td>
+                                <td>
+                                    <a class="btn btn-sm btn-primary" href="@Url.Action("Pay", "Payment", new { id = payment.Id })"><i class="fa-brands fa-paypal"></i></a>
+                                </td>
                             </tr>
                         }
                     </tbody>
@@ -117,7 +115,7 @@
     $("#filter").click(function (){
         let paid = $("#filter-paid option:selected").val();
         let month = $("#filter-month option:selected").val();
-        let url = "/Payment/Index?paid=" + paid + "&month=" + month;
+        let url = "/UserPayment/Index?paid=" + paid + "&month=" + month;
         $("#filter").attr("href", url);
     });
     
@@ -126,7 +124,7 @@
         let paid = $("#filter-paid option:selected").val();
         let month = $("#filter-month option:selected").val();
         let page = $(this).text();
-        let url = "/Payment/Index?page="+page+"&paid=" + paid + "&month=" + month;
+        let url = "/UserPayment/Index?page="+page+"&paid=" + paid + "&month=" + month;
         $(this).attr("href", url);
     });
 
@@ -135,8 +133,6 @@
 
 <script type="text/javascript">
     
-    
-    
     function getId(clicked_id) {
             this.clickId = clicked_id;
             console.log(clickId);
@@ -144,3 +140,4 @@
             $('#invId').attr("value", clicked_id)
          }
 </script>
+
