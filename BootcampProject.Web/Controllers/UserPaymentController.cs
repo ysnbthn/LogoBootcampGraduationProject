@@ -1,6 +1,7 @@
 ﻿using BootcampProject.Core.Abstract;
 using BootcampProject.Core.DTOs.UserPaymentDtos;
 using BootcampProject.Domain.MongoDbEntities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
@@ -8,6 +9,7 @@ using System.Linq;
 
 namespace BootcampProject.Web.Controllers
 {
+    [Authorize(Roles = "Basic")]
     public class UserPaymentController : Controller
     {
         private readonly IUserPaymentService _userPaymentService;

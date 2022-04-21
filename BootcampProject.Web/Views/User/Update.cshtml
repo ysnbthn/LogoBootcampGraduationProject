@@ -22,6 +22,7 @@
                 <p class="text-danger">@TempData["CreateError"]</p>
 
                 <div class="mb-3">
+                    @Html.LabelFor(x=>x.Name, "User Name")
                     <div class="input-group">
                         @Html.TextBoxFor(x => x.Name, new {@class = "form-control", placeholder = "Name", value=Model.Name})
                     </div>
@@ -29,6 +30,7 @@
                 </div>
 
                 <div class="mb-3">
+                    @Html.LabelFor(x=>x.Surname, "User Surname")
                     <div class="input-group">
                         @Html.TextBoxFor(x => x.Surname, new {@class = "form-control", placeholder = "Surname", value=Model.Surname })
                     </div>
@@ -36,6 +38,7 @@
                 </div>
 
                 <div class="mb-3">
+                    @Html.LabelFor(x=>x.TCNo, "User TC Number")
                     <div class="input-group">
                         @Html.TextBoxFor(x => x.TCNo, new {@class = "form-control", placeholder = "TC number", maxlength="11", value=Model.TCNo})
                     </div>
@@ -43,6 +46,7 @@
                 </div>
 
                 <div class="mb-3">
+                    @Html.LabelFor(x=>x.PhoneNumber, "User Phone Number")
                     <div class="input-group">
                         @Html.TextBoxFor(x => x.PhoneNumber, new {@class = "form-control", placeholder = "Phone Ex: 0555 55 55", maxlength="11", value=Model.PhoneNumber})
                     </div>
@@ -50,6 +54,7 @@
                 </div>
 
                 <div class="mb-3">
+                    @Html.LabelFor(x=>x.CarPlateNumber, "User Car Plate Number (Optional)")
                     <div class="input-group">
                         @Html.TextBoxFor(x => x.CarPlateNumber, new {@class = "form-control", placeholder = "Plate Number ex : 34AZ123", maxlength="8", value=Model.CarPlateNumber})
                     </div>
