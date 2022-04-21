@@ -13,12 +13,15 @@ Apartment management system with .Net Core 5 MVC and payment system with .Net Co
  - Automapper for converting models to DTOs
  - Fluent Validation for validating models in forms
  - DateTime extension for printing DateTime to desired string format
+ - Hangfire for running processes in the background
  
  ## Run project
  - Open package manager console and type update-database
  - Run the project
 
 ## Pages
+
+- Web application consist of 18 pages
 
 ### Login
 - User or Admin can login from this page
@@ -45,7 +48,7 @@ Apartment management system with .Net Core 5 MVC and payment system with .Net Co
 
 - Update User
 
-![](https://i.hizliresim.com/oah0upw.jpg)
+![resim](https://user-images.githubusercontent.com/78491395/164557121-52e547eb-f6f0-48ed-bf81-200c30acc2c6.png)
 
 - Delete User
 
@@ -100,34 +103,54 @@ Apartment management system with .Net Core 5 MVC and payment system with .Net Co
 
 ## User Index Page
 
-- User can go to his/her invoices or credit carddss from here
+- User can go to his/her invoices or credit cards from here
 
-![resim](https://user-images.githubusercontent.com/78491395/164485998-8859a518-615b-41d1-81e4-f5e45a86911f.png)
+![resim](https://user-images.githubusercontent.com/78491395/164555258-b8ad0273-bf0a-4908-870f-06a6a8cb801a.png)
 
 
 ### User Invoice Page
 
-- User can see his/her bills and pay them by clicking the button
+- User can see his/her bills, filter them by date or payment status and pay them by clicking the button
 
-![resim](https://user-images.githubusercontent.com/78491395/164486218-3b6ff2b8-40c7-4fe4-b893-566ef296e52d.png)
+![resim](https://user-images.githubusercontent.com/78491395/164555400-599de00c-0ee6-4a8a-8c0a-7dc4b18d503e.png)
 
 ### User credit card page 
 
-- User can see his/her credit cards and add or delete them
+- User can see his/her credit cards and add new card or delete a credit card
 
-![resim](https://user-images.githubusercontent.com/78491395/164486471-93ea99b4-663e-4d49-8e57-8a57d0f60b24.png)
+![resim](https://user-images.githubusercontent.com/78491395/164555535-51ff9f88-966a-44cf-bd6b-19f5fb827089.png)
 
 ### Payment page
 
 - User can select his/her credit card and make payment from here
 
-![resim](https://user-images.githubusercontent.com/78491395/164486933-955dc970-cd40-4f52-a177-b4cba4225cb4.png)
+![resim](https://user-images.githubusercontent.com/78491395/164555604-94c46f2c-eb83-442e-8d93-dc84a2d1ad8c.png)
 
+### 500 Internal Server Error Page
 
-### Payment API
+![resim](https://user-images.githubusercontent.com/78491395/164557768-9da93759-6a53-4571-b971-59f8e8490107.png)
+
+### 404 Not Found Page
+
+![resim](https://user-images.githubusercontent.com/78491395/164557850-4365ba12-719c-4856-9e42-fb823b1f305c.png)
+
+## Payment API
 
 - When user creates or deletes credit card or makes payment mvc makes requests to this api endpoints
 
-![resim](https://user-images.githubusercontent.com/78491395/164486640-560b371a-4083-4c01-bc5f-8f254a41c643.png)
+![resim](https://user-images.githubusercontent.com/78491395/164555652-e50136f9-e1fc-4536-9b74-ac0811a4a3e7.png)
+
+### Hangfire Dashboard
+
+![resim](https://user-images.githubusercontent.com/78491395/164560924-2592bd56-2009-4000-9495-ac663f6f0d6f.png)
 
 
+### Database Diagrams
+
+- MS SQL Server
+
+![resim](https://user-images.githubusercontent.com/78491395/164556368-62768e3d-b042-4695-bcb8-6a322d3c9d89.png)
+
+- MongoDB Users Table Object
+
+![resim](https://user-images.githubusercontent.com/78491395/164556601-bb526e79-0862-4361-ae94-1d3d5e1fda50.png)
