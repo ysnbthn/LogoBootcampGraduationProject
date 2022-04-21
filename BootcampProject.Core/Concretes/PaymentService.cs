@@ -4,6 +4,7 @@ using BootcampProject.Core.DTOs;
 using BootcampProject.Core.DTOs.PaymnetDtos;
 using BootcampProject.DataAccess.EntityFramework.Repository.Abstracts;
 using BootcampProject.Domain.Entities;
+using Hangfire;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -44,12 +45,9 @@ namespace BootcampProject.Core.Concretes
 
                     var paymentExists = _repository.Get().Any(x => x.PaymentType == entity.PaymentType && x.BillingDate.Month == entity.BillingDate.Month && x.UserEmail == entity.UserEmail);
 
-                    //if (paymentExists) return new ResponseDto { Error = $"This payment already exists for user: {entity.UserEmail}.", Success = false };
-
                     if (!paymentExists)
                     {
-                        _repository.Add(_mapper.Map<Payment>(entity)); // use hangfire
-                        _unitOfWork.Commit();
+                        BackgroundJob.Enqueue(() => AddPaymentsToDb(entity));
                     }
                     else
                     {
@@ -65,6 +63,12 @@ namespace BootcampProject.Core.Concretes
             }
 
             return isUserListEmpty ? new ResponseDto { Error = "User list cannot be empty", Success = false } : new ResponseDto { Data = "Payment(s) Added", Success = true };
+        }
+
+        public void AddPaymentsToDb(CreatePaymentDto entity)
+        {
+            _repository.Add(_mapper.Map<Payment>(entity));
+            _unitOfWork.Commit();
         }
 
         public CreatePaymentDto GetInvoiceForPayment(int invoiceId)

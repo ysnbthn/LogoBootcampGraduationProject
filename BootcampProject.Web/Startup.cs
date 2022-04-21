@@ -13,12 +13,14 @@ using BootcampProject.Domain.MongoDbEntities;
 using BootcampProject.Web.Middlewares;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Hangfire;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Globalization;
 using System.Net;
 
 namespace BootcampProject.Web
@@ -52,6 +54,9 @@ namespace BootcampProject.Web
                         fv.DisableDataAnnotationsValidation = true;
                         fv.ImplicitlyValidateChildProperties = true;
                     });
+
+            services.AddHangfire(x => x.UseSqlServerStorage(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddHangfireServer();
 
             services.AddTransient<IValidator<LoginDto>, LoginValidator>();
             services.AddTransient<IValidator<CreateUserDto>, CreateUserValidator>();
@@ -116,6 +121,23 @@ namespace BootcampProject.Web
                     name: "default",
                     pattern: "{controller=Home}/{action=Login}/{id?}");
             });
+
+
+            var supportedCultures = new[]
+            {
+                new CultureInfo("en-US")
+            };
+
+            app.UseRequestLocalization(new RequestLocalizationOptions
+            {
+                DefaultRequestCulture =  new Microsoft.AspNetCore.Localization.RequestCulture("en-US"),
+                SupportedCultures = supportedCultures,
+                SupportedUICultures = supportedCultures
+            });
+
+            app.UseHangfireDashboard();
+
+            
         }
     }
 }
